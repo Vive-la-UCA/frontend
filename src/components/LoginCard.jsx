@@ -44,6 +44,7 @@ const LoginCard = () => {
       return;
     }
 
+    sessionStorage.setItem("token", data.token);
     router.push("/dashboard ");
   };
 

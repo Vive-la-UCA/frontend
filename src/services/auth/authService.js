@@ -12,4 +12,19 @@ const Login = async (email, password) => {
     });
 };
 
-export { Login };
+const CheckToken = async (token) => {
+  return axios
+    .get(`${CORE_API_URL}/auth/check-token`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      return { data: response.data, status: response.status };
+    })
+    .catch((error) => {
+      return { data: error.response.data, status: error.response.status };
+    });
+};
+
+export { Login, CheckToken };
