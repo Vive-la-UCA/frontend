@@ -1,18 +1,52 @@
 "use client";
 import { IoMailOutline } from "react-icons/io5";
 import { RxLockClosed } from "react-icons/rx";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import AuthService from "@/services/auth/authService";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const LoginCard = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const [inputValues, setInputValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues({
+      ...inputValues,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const { email, password } = inputValues;
+
+    try {
+      const response = await AuthService.Login(email, password);
+      if (response.error) {
+        console.error(response.error);
+      } else {
+        router.push("/dashboard");
+        console.log(response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <form className=" flex flex-col gap-3 font-montserrat font-medium">
+    <form
+      className=" flex flex-col gap-3 font-montserrat font-medium"
+      onSubmit={handleSubmit}
+    >
       <h1 className=" font-bold text-black text-center text-2xl pb-4 ">
         Iniciar sesión
       </h1>
-
       <div>
         <div className="text-lg xl:text-base text-primary">Email</div>
         <label className="relative block text-primary ">
@@ -20,8 +54,8 @@ const LoginCard = () => {
             <IoMailOutline className="h-4 w-4 fill-background font-semibold" />
           </span>
           <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={inputValues.email}
+            onChange={handleInputChange}
             name="email"
             className="w-full text-sm p-2 pl-5 pr-3 bg-transparent border-b border-gray-500 focus:outline-none"
             type="email"
@@ -37,9 +71,9 @@ const LoginCard = () => {
             <RxLockClosed className="h-4 w-4 fill-background font-semibold" />
           </span>
           <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            name="contraseña"
+            value={inputValues.password}
+            onChange={handleInputChange}
+            name="password"
             className="w-full text-sm p-2 pl-5 pr-3 bg-transparent border-b border-gray-500 focus:outline-none"
             type="password"
             placeholder="Ingrese tu contraseña"
@@ -59,7 +93,7 @@ const LoginCard = () => {
         <div className="flex justify-center text-white mt-10">
           <button
             type="submit"
-            className="font-monserrat font-semibold text-white bg-primary py-2 px-4 rounded-2xl w-[50%] text-center"
+            className="font-semibold text-white bg-primary py-2 px-4 rounded-2xl w-[50%] text-center"
           >
             Login
           </button>

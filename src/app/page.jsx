@@ -1,8 +1,10 @@
 import LoginCard from "@/components/LoginCard";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   return (
     <main className="flex min-h-screen flex-col items-center bg-background font-montserrat">
+      <ToastContainer />
       <section className="grow w-full flex justify-center items-center">
         <div className="bg-white shadow-xl rounded-xl h-[80%] w-[35%] p-5">
           <LoginCard />
