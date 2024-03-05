@@ -2,12 +2,13 @@
 import { IoMailOutline } from "react-icons/io5";
 import { RxLockClosed } from "react-icons/rx";
 import { useState } from "react";
-import AuthService from "@/services/auth/authService";
+import { Login } from "@/services/auth/authService";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { toast } from "react-toastify";
 
 const LoginCard = () => {
   const router = useRouter();
+
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
@@ -25,18 +26,25 @@ const LoginCard = () => {
     event.preventDefault();
 
     const { email, password } = inputValues;
+    const { data, status } = await Login(email, password);
 
-    try {
-      const response = await AuthService.Login(email, password);
-      if (response.error) {
-        console.error(response.error);
-      } else {
-        router.push("/dashboard");
-        console.log(response);
+    setInputValues({
+      email: "",
+      password: "",
+    });
+
+    if (status !== 200) {
+      if (data.errors) {
+        data.errors.forEach((error) => {
+          toast.error(error.msg);
+        });
+        return;
       }
-    } catch (error) {
-      console.error(error);
+      toast.error(data.msg);
+      return;
     }
+
+    router.push("/dashboard ");
   };
 
   return (

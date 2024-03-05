@@ -1,5 +1,6 @@
 import LoginCard from "@/components/LoginCard";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   return (
