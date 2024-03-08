@@ -1,13 +1,18 @@
 'use client' // Indica que el código se ejecutará en el navegador
 
 import Link from "next/link";
-import { FaHouse, FaLocationArrow } from "react-icons/fa6";
+import { FaHouse, FaLocationArrow, FaLocationDot } from "react-icons/fa6";
+import { FaUserAlt } from "react-icons/fa";
+import { BiSolidBadgeCheck } from "react-icons/bi";
 
 
 //Links del dashboard
 const links = [
     { name: "Home", href: "/dashboard", icon: FaHouse },
-    { name: "Routes", href: "/dashboard/routes", icon: FaLocationArrow }
+    { name: "Rutas", href: "/dashboard/routes", icon: FaLocationArrow },
+    { name: "Usuarios", href: "/dashboard/users", icon: FaUserAlt },
+    { name: "Localidades", href: "/dashboard/locations", icon: FaLocationDot },
+    { name: "Insignias", href: "/dashboard/badges", icon: BiSolidBadgeCheck },
 ]
 
 
