@@ -2,7 +2,7 @@ import { BiSolidBadgeCheck } from "react-icons/bi";
 
 export default function UserCard() {
   return (
-    <div className="rounded-lg p-4 bg-white shadow-md flex items-center justify-between mb-2">
+    <div className="rounded-lg p-4 flex items-center justify-between">
       <div className="flex items-center">
         <div className="h-10 w-10 rounded-full bg-gray-300 overflow-hidden mr-2">
           {/* Contenedor circular para la foto del usuario */}
@@ -14,10 +14,10 @@ export default function UserCard() {
         </div>
         <p className="text-lg font-semibold">Nombre del Usuario</p>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 text-yellow-badge ">
         {/* Icono de insignia */}
-        <p className="text-lg font-semibold">6</p>
-        <BiSolidBadgeCheck className="text-yellow-badge mr-2" size={25} />
+        <p className="text-lg font-bold">6</p>
+        <BiSolidBadgeCheck size={30} />
       </div>
     </div>
   );

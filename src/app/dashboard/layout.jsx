@@ -2,13 +2,13 @@ import SideNav from "@/components/SideNav";
 
 export default function RootLayout({ children }) {
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden bg-gray-50">
+    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden ">
       <div className="w-full flex-none md:w-64">
         <SideNav />
       </div>
 
       {/** El children en principio es page.jsx */}
-      <div className="flex-grow p-6 md:overflow-y-auto md:py-6 pl-10 pr-20">
+      <div className="flex-grow p-6 md:overflow-y-auto md:py-6 pl-10 pr-20 bg-gray-50 rounded-2xl">
         {children}
       </div>
     </div>
