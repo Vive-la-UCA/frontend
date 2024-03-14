@@ -12,7 +12,8 @@ module.exports = {
         'secondary': '#F4871F',
         'background': '#F5F6F7',
         'yellow-badge' : '#DE9C1C',
-        'blue-principal': '#012255'
+        'blue-principal': '#012255',
+        'gray-primary': '#E6E6E6',
       },
       fontFamily: {
         'lilita': "lilita",

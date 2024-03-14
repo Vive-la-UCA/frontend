@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
       </div>
 
       {/** El children en principio es page.jsx */}
-      <div className="flex-grow p-6 md:overflow-y-auto md:py-6 pl-10 pr-20 bg-gray-50 rounded-2xl">
+      <div className="flex-grow px-6 py-10 md:overflow-y-auto pl-10 pr-20 bg-gray-50 rounded-2xl">
         {children}
       </div>
     </div>
