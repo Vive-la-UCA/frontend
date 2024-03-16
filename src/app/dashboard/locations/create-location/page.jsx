@@ -18,7 +18,6 @@ export default function Page() {
                     <ImageUpload />
                 </div>
                 <MapLocations />
-
             </form>
 
         </div>
