@@ -9,7 +9,7 @@ export default function SearchBar() {
         className="block w-full text-gray-700 bg-gray-200 focus:outline-none"
         placeholder="Buscar..."
       />
-      <button className="bg-gray-800 rounded-lg p-2 ml-2 focus:outline-none">
+      <button className="bg-primary rounded-lg p-2 ml-2 focus:outline-none">
         <FaSearch className="text-white text-xl" />
       </button>
     </div>
