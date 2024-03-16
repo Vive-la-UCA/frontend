@@ -1,7 +1,8 @@
+import InfoLocation from "@/components/InfoLocation";
 export default function Page() {
-    return (
-        <div>
-            <h1>Rutas</h1>
-        </div>
-    );
-};
+  return (
+    <div>
+      <h1>Rutas</h1>
+    </div>
+  );
+}
