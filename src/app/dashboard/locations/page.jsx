@@ -1,28 +1,7 @@
-"use client";
-import React, { useState, useEffect } from "react";
 import SearchBar from "@/components/SearchBar";
 import LocateCard from "@/components/LocateCard";
-import getAllLocations from "@/services/data/Location.service";
 
 export default function Page() {
-  const [locations, setLocations] = useState([]);
-
-  useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        console.log("Token:", token);
-        const response = await getAllLocations(token);
-        setLocations(response);
-        console.log("Locations fetched:", response);
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
-
-    fetchLocations();
-  }, []);
-
   return (
     <>
       <div>
@@ -38,11 +17,7 @@ export default function Page() {
         </Link>
       </div> */}
       <div className="mt-10 flex flex-row flex-wrap gap-10">
-        {locations.map((location) => (
-          <div key={location.name}>
-            <LocateCard imageSrc={location.image} title={location.name} />
-          </div>
-        ))}
+        <LocateCard />
       </div>
     </>
   );
