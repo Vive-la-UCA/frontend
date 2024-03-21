@@ -1,7 +1,11 @@
+'use client'
 import InputText from "@/components/input-text";
 import { TextArea } from "@/components/TextArea";
 import ImageUpload from "@/components/ImageUpload";
-import MapLocations from "@/components/MapLocations";
+import { Suspense } from "react";
+import Map from "@/components/";
+import MapSkeleton from "@/components/skeletons/MapSkeleton";
+
 
 export default function Page() {
     return (
@@ -14,9 +18,16 @@ export default function Page() {
                         <InputText title={"Nombre"} />
                         <TextArea title={"Descripción"} />
                     </div>
+
                     <ImageUpload />
+
                 </div>
-                <MapLocations />
+
+                <p className="font-bold">Seleccionar ubicación</p>
+                <Suspense fallback={MapSkeleton}>
+                    <Map />
+                </Suspense>
+
             </form>
 
         </div>
