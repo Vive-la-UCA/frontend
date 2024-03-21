@@ -24,10 +24,7 @@ export default function Page() {
                 </div>
 
                 <p className="font-bold">Seleccionar ubicación</p>
-                <Suspense fallback={MapSkeleton}>
-                    <Map />
-                </Suspense>
-
+                <Map />
             </form>
 
         </div>
