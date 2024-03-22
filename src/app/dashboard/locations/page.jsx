@@ -1,3 +1,4 @@
+"use client";
 import SearchBar from "@/components/SearchBar";
 import LocateCard from "@/components/LocateCard";
 
@@ -18,6 +19,9 @@ export default function Page() {
       </div> */}
       <div className="mt-10 flex flex-row flex-wrap gap-10">
         <LocateCard />
+      </div>
+      <div>
+      
       </div>
     </>
   );
