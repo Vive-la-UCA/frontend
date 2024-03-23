@@ -3,8 +3,9 @@ import SearchBar from "@/components/SearchBar";
 import LocateCard from "@/components/LocateCard";
 import { Suspense, useEffect, useState } from "react";
 import { getAllLocations } from "@/services/data/Location.service";
-
-
+import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
+import PrincipalButton from "@/components/buttons/principal-button";
+import { IoIosAddCircle } from "react-icons/io";
 export default function Page() {
 
   const [locations, setLocations] = useState([]);
@@ -23,18 +24,18 @@ export default function Page() {
     <>
       <div>
         <h1 className="text-3xl font-semibold mb-4">Localidades</h1>
-        <SearchBar />
+        <div className="flex flex-row justify-between w-full items-center gap-2">
+          <SearchBar />
+          <PrincipalButton link="/dashboard/locations/create-location" text={"Crear Localidad"} type={"button"} Icon={<IoIosAddCircle size={25} />} />
+        </div>
       </div>
       <div className="mt-10 flex flex-row flex-wrap gap-10">
         {
-
           locations.map((location) => (
-
-            <LocateCard location={location} />
-
+            <LocateCard key={location.id} location={location} />
           ))
-
         }
+
       </div >
       <div>
 

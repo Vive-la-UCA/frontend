@@ -1,7 +1,7 @@
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
 export default function InformationPopUp() {
     return (
-        <div className="absolute top-0 -right-32 bg-white px-2 py-1 rounded-lg shadow-lg">
+        <div className="absolute z-20 top-0 -right-32 bg-white px-2 py-1 rounded-lg shadow-lg">
             <div className="relative">
                 <div className="flex items-center">
                     <MdEdit className="text-gray-800 size-4 mx-1" />

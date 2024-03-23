@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 
 export default function SearchBar() {
   return (
-    <div className="flex items-center justify-between w-full bg-gray-200 px-4 py-2 rounded-lg">
+    <div className="flex items-center justify-between w-4/5 bg-gray-200 px-4 py-2 rounded-lg">
       <input
         type="text"
         id="search-bar"
