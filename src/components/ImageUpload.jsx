@@ -4,18 +4,21 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaImage } from "react-icons/fa6";
 
-export default function ImageUpload() {
+export default function ImageUpload({ onSelectedFile }) {
     const [previewImage, setPreviewImage] = useState(null);
     const [namePreviewImage, setNamePreviewImage] = useState(null);
 
+
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
+
         const reader = new FileReader();
 
         if (file.type.startsWith('image/')) {
             reader.onload = () => {
                 setPreviewImage(reader.result);
                 setNamePreviewImage(file.name);
+                onSelectedFile(file);
             };
 
             reader.readAsDataURL(file);
@@ -26,7 +29,6 @@ export default function ImageUpload() {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: "image/*",
     });
 
     return (

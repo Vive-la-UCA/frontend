@@ -2,29 +2,71 @@
 import InputText from "@/components/input-text";
 import { TextArea } from "@/components/TextArea";
 import ImageUpload from "@/components/ImageUpload";
-import { Suspense } from "react";
 import Map from "@/components/";
-import MapSkeleton from "@/components/skeletons/MapSkeleton";
+import { createNewLocation } from "@/services/data/Location.service";
 
 
 export default function Page() {
+
+    //Creando el objeto a enviar a la base de datos.
+    //1. Crear un objeto con los datos del formulario
+    let location = {
+        name: "",
+        description: "",
+        image: null,
+        coords: {
+            lat: "",
+            lng: ""
+        }
+    }
+
+    const getNameHandler = (e) => {
+        location.name = e.target.value;
+    }
+
+    const getImageFileHandler = (file) => {
+        location.image = file;
+    }
+
+    const getDescriptionHandler = (e) => {
+        location.description = e.target.value;
+    }
+
+    const getLocationCordsHandler = (e) => {
+        location.coords.lat = e.lat;
+        location.coords.lng = e.lng;
+    }
+
+    async function submitHandler(e) {
+        e.preventDefault();
+        console.log(location);
+
+        const response = await createNewLocation(location);
+        console.log(response);
+    }
+
+
     return (
         <div>
             <h1 className="text-3xl font-semibold mb-4">Crear una localidad</h1>
             <hr />
-            <form className="">
+            <form className="" onSubmit={submitHandler}>
                 <div className="flex flex-row justify-between w-full">
                     <div className="flex flex-col w-1/2">
-                        <InputText title={"Nombre"} />
-                        <TextArea title={"Descripción"} />
+                        <InputText title={"Nombre"} onChange={getNameHandler} />
+                        <TextArea title={"Descripción"} onChange={getDescriptionHandler} />
                     </div>
 
-                    <ImageUpload />
+                    <ImageUpload onSelectedFile={getImageFileHandler} />
 
                 </div>
 
                 <p className="font-bold">Seleccionar ubicación</p>
-                <Map />
+                <Map onClick={getLocationCordsHandler} />
+
+                <div className="flex flex-row justify-center w-full">
+                    <button type="submit" className="bg-black text-white text-2xl py-2 px-5 rounded-xl mt-5">Crear ubicación</button>
+                </div>
             </form>
 
         </div>

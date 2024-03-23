@@ -10,7 +10,7 @@ const ICON = icon({
 })
 
 
-export default function MapLocations() {
+export default function MapLocations({ onClick }) {
 
 
     const [position, setPosition] = useState([13.680712, -89.236230]) // Pocision inicial
@@ -19,7 +19,8 @@ export default function MapLocations() {
     const MapCoords = () => {
         useMapEvents({
             click(e) {
-                setPosition([e.latlng.lat, e.latlng.lng])
+                setPosition([e.latlng.lat, e.latlng.lng]);
+                onClick({ lat: e.latlng.lat, lng: e.latlng.lng });
             }
         });
         return null;
@@ -28,7 +29,7 @@ export default function MapLocations() {
     return (
         <div>
             <p>{position[0] + "," + position[1]}</p>
-            <MapContainer center={position} zoom={20} className='h-[30rem] w-full rounded-xl outline-none'>
+            <MapContainer center={position} zoom={20} className='h-[20rem] w-full rounded-xl outline-none'>
 
                 <TileLayer
                     url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"

@@ -1,6 +1,6 @@
-import React from "react";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { CORE_IMAGES_URL } from "@/app/constants/session";
 
 export default function InfoLocation({
   open,
@@ -29,7 +29,7 @@ export default function InfoLocation({
         />
         <div className="flex items-center mt-0 w-96 h-72 pt-6 px-6 justify-center">
           <img
-            src={location.image}
+            src={`${CORE_IMAGES_URL}/${location.image}`}
             alt="Foto Localidad"
             className="rounded-lg object-cover w-full h-full"
           />
@@ -42,7 +42,7 @@ export default function InfoLocation({
           <div className="flex items-center text-gray-700">
             <FaLocationDot className="w-5 h-5 mr-2" size={20} />
             <p>
-              {location.coordinates[0]} - {location.coordinates[1]}
+              {location.latitude} - {location.longitude}
             </p>
           </div>
         </div>
