@@ -1,19 +1,14 @@
-import { FaLocationArrow, FaTimes } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 
-export default function InfoLocation({
-  open,
-  onClose,
-  location,
-}) {
-
+export default function InfoLocation({ open, onClose, location }) {
   function handleClose(e) {
     // Verificar si se hizo clic fuera del contenido del modal
     if (e.target === e.currentTarget) {
       onClose(); // Cerrar el modal
     }
-  };
+  }
 
   if (!open) return null;
 

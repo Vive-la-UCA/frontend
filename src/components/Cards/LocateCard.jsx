@@ -41,14 +41,13 @@ export default function LocateCard({ location, loading }) {
             src={`${CORE_IMAGES_URL}/${location.image}`}
             alt="Card Image"
           />
-          <div className="absolute inset-0 bg-gray-900 opacity-40 rounded-lg"></div> {/* Filtro de fondo oscuro*/}
+          <div className="absolute inset-0 bg-gray-900 opacity-40 rounded-lg"></div>{" "}
+          {/* Filtro de fondo oscuro*/}
           <div className="absolute inset-0 flex flex-col justify-end p-3 text-white">
             <h2 className="text-xl font-semibold">{location.name}</h2>
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-              {showMenu === location && (
-                <ActionsPopUp />
-              )}
+              {showMenu === location && <ActionsPopUp />}
             </div>
           </div>
         </div>
@@ -64,4 +63,4 @@ export default function LocateCard({ location, loading }) {
       </div>
     </div>
   );
-};
+}
