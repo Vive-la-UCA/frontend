@@ -10,7 +10,7 @@ const ICON = icon({
 })
 
 
-export default function MapLocations({ onClick }) {
+export default function SelectMapLocations({ onClick }) {
 
 
     const [position, setPosition] = useState([13.680712, -89.236230]) // Pocision inicial
