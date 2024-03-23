@@ -1,5 +1,5 @@
 "use client";
-import LoginCard from "@/components/LoginCard";
+import LoginCard from "@/components/Cards/LoginCard";
 import { CheckToken } from "@/services/auth/authService";
 import { data } from "autoprefixer";
 import { useRouter } from "next/navigation";

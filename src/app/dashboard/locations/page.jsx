@@ -1,9 +1,8 @@
 'use client'
-import SearchBar from "@/components/SearchBar";
-import LocateCard from "@/components/LocateCard";
-import { Suspense, useEffect, useState } from "react";
+import SearchBar from "@/components/Inputs/SearchBar";
+import LocateCard from "@/components/Cards/LocateCard";
+import { useEffect, useState } from "react";
 import { getAllLocations } from "@/services/data/Location.service";
-import { CardSkeleton } from "@/components/skeletons/CardSkeleton";
 import PrincipalButton from "@/components/buttons/principal-button";
 import { IoIosAddCircle } from "react-icons/io";
 export default function Page() {

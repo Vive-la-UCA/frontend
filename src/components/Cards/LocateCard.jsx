@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import InfoLocation from "@/components/InfoLocation";
+import InfoLocation from "@/components/popups/InfoLocation";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
-import InformationPopUp from "./popups/InformationPopUp";
 import { CardSkeleton } from "@/components/skeletons/CardSkeleton"; // Importa tu componente de skeleton
+import ActionsPopUp from "../popups/ActionsPopUp";
 
 export default function LocateCard({ location, loading }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -47,7 +47,7 @@ export default function LocateCard({ location, loading }) {
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
               {showMenu === location && (
-                <InformationPopUp />
+                <ActionsPopUp />
               )}
             </div>
           </div>

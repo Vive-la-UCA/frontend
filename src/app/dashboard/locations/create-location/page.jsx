@@ -1,7 +1,7 @@
 'use client'
-import InputText from "@/components/input-text";
-import { TextArea } from "@/components/TextArea";
-import ImageUpload from "@/components/ImageUpload";
+import InputText from "@/components/Inputs/input-text";
+import { TextArea } from "@/components/Inputs/TextArea";
+import ImageUpload from "@/components/Inputs/ImageUpload";
 import Map from "@/components/";
 import { createNewLocation } from "@/services/data/Location.service";
 
@@ -39,10 +39,7 @@ export default function Page() {
 
     async function submitHandler(e) {
         e.preventDefault();
-        console.log(location);
-
         const response = await createNewLocation(location);
-        console.log(response);
     }
 
 
