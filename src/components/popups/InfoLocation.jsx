@@ -5,9 +5,10 @@ import { CORE_IMAGES_URL } from "@/app/constants/session";
 export default function InfoLocation({
   open,
   onClose,
-  location, // Utilizamos la prop location para obtener la información de la ubicación
+  location,
 }) {
-  const handleClose = (e) => {
+
+  function handleClose(e) {
     // Verificar si se hizo clic fuera del contenido del modal
     if (e.target === e.currentTarget) {
       onClose(); // Cerrar el modal
