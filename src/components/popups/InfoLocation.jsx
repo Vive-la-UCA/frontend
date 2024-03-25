@@ -3,18 +3,13 @@ import { FaTimes } from "react-icons/fa";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { MapView } from "..";
 
-export default function InfoLocation({
-  open,
-  onClose,
-  location,
-}) {
-
+export default function InfoLocation({ open, onClose, location }) {
   function handleClose(e) {
     // Verificar si se hizo clic fuera del contenido del modal
     if (e.target === e.currentTarget) {
       onClose(); // Cerrar el modal
     }
-  };
+  }
 
   if (!open) return null;
 
