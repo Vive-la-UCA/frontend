@@ -1,12 +1,12 @@
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
 import Link from "next/link";
 
-export default function ActionsPopUp() {
+export default function ActionsPopUp(location) {
   return (
     <div className="absolute z-20 top-0 -right-32 bg-white pl-2 py-1 rounded-lg shadow-lg">
       <div className="relative pr-2 pl-1">
         <Link
-          href="/dashboard/locations/create-location"
+          href="/dashboard/locations/edit-location"
           className="flex items-center rounded-md hover:bg-gray-200"
         >
           <MdEdit className="text-gray-800 size-4 mx-1" />

@@ -47,7 +47,7 @@ export default function LocateCard({ location, loading }) {
             <h2 className="text-xl font-semibold">{location.name}</h2>
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-              {showMenu === location && <ActionsPopUp />}
+              {showMenu === location && <ActionsPopUp location={selectedLocation} />}
             </div>
           </div>
         </div>

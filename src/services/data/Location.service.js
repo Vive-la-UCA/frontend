@@ -55,3 +55,26 @@ export const createNewLocation = async (location) => {
     return error;
   });
 };
+
+export const updateLocation = async (location) => {
+  const formData = new FormData();
+  
+  formData.append('name', location.name);
+  formData.append('description', location.description);
+  formData.append('image', location.image);
+  formData.append('latitude', location.coords.lat);
+  formData.append('longitude', location.coords.lng);
+
+  return api.put(`/location/${location.id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
+    },
+  })
+  .then((response) => {
+    return response;
+  })
+  .catch((error) => {
+    return error;
+  });
+};
+
