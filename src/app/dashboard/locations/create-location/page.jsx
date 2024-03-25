@@ -1,12 +1,19 @@
 'use client'
+import { Map } from "@/components";
 import InputText from "@/components/Inputs/input-text";
 import { TextArea } from "@/components/Inputs/TextArea";
 import ImageUpload from "@/components/Inputs/ImageUpload";
-import Map from "@/components/";
 import { createNewLocation } from "@/services/data/Location.service";
+import LocationValidator from "@/app/validations/locationValidator";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function Page() {
+
+    const router = useRouter();
 
     //Creando el objeto a enviar a la base de datos.
     //1. Crear un objeto con los datos del formulario
@@ -39,13 +46,33 @@ export default function Page() {
 
     async function submitHandler(e) {
         e.preventDefault();
+
+        const validate = LocationValidator(location);
+
+        if (validate.status == false) {
+            toast.info(validate.message);
+            return;
+        }
+
         const response = await createNewLocation(location);
+
+        if (response) {
+            toast.done("Ubicación creada con éxito");
+            //3 segundos despues redirecciona
+            setTimeout(() => {
+                router.push("/dashboard/locations");
+            }, 2000);
+
+        } else {
+            toast.error("Error al crear la ubicación");
+        }
     }
 
 
     return (
         <div>
             <h1 className="text-3xl font-semibold mb-4">Crear una localidad</h1>
+            <ToastContainer />
             <hr />
             <form className="" onSubmit={submitHandler}>
                 <div className="flex flex-row justify-between w-full">
