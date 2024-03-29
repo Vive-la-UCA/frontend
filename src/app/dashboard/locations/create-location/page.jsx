@@ -21,10 +21,8 @@ export default function Page() {
         name: "",
         description: "",
         image: null,
-        coords: {
-            lat: "",
-            lng: ""
-        }
+        latitude: "",
+        longitude: "",
     }
 
     const getNameHandler = (e) => {
@@ -39,15 +37,16 @@ export default function Page() {
         location.description = e.target.value;
     }
 
-    const getLocationCordsHandler = (e) => {
-        location.coords.lat = e.lat;
-        location.coords.lng = e.lng;
+    const getLocationCordsHandler = (longitude, latitude) => {
+        location.latitude = latitude;
+        location.longitude = longitude;
     }
 
     async function submitHandler(e) {
         e.preventDefault();
 
         const validate = LocationValidator(location);
+        console.log(location);
 
         if (validate.status == false) {
             toast.info(validate.message);
@@ -55,9 +54,11 @@ export default function Page() {
         }
 
         const response = await createNewLocation(location);
+        console.log(response);
 
         if (response) {
-            toast.done("Ubicación creada con éxito");
+            toast.success("Ubicación creada con éxito");
+            console.log("Ubicación creada");
             //3 segundos despues redirecciona
             setTimeout(() => {
                 router.push("/dashboard/locations");

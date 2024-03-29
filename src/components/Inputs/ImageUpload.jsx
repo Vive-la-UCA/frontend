@@ -3,8 +3,9 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaImage } from "react-icons/fa6";
+import { CORE_IMAGES_URL } from '@/app/constants/session';
 
-export default function ImageUpload({ onSelectedFile }) {
+export default function ImageUpload({ onSelectedFile, previewImageEdit = null }) {
     const [previewImage, setPreviewImage] = useState(null);
     const [namePreviewImage, setNamePreviewImage] = useState(null);
 
@@ -48,12 +49,18 @@ export default function ImageUpload({ onSelectedFile }) {
                     {
                         previewImage && (
                             <div className='flex flex-row justify-start items-center gap-4'>
-                                <img src={previewImage
-                                } alt='Imagen seleccionada' className='rounded-xl mt-5 w-16 h-16 object-cover' />
+                                <img src={previewImage} alt='Imagen seleccionada' className='rounded-xl mt-5 w-16 h-16 object-cover' />
                                 <p>{namePreviewImage}</p>
                             </div>
-
                         )
+                    }
+                    {
+                        previewImageEdit != null ? (
+                            <div className='flex flex-row justify-start items-center gap-4'>
+                                <img src={CORE_IMAGES_URL + "/uploads/" + previewImageEdit} alt='Imagen seleccionada' className='rounded-xl mt-5 w-16 h-16 object-cover' />
+                                <p>{previewImageEdit.slice(8)}</p> {/* Slice para quitar el nombre de la carpeta */}
+                            </div>
+                        ) : (null)
                     }
                 </div>
 

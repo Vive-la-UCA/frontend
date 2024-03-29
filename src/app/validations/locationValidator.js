@@ -1,6 +1,6 @@
 export default function LocationValidator(location) {
 
-    if (!location.name || !location.description || !location.image || !location.coords.lat || !location.coords.lng) {
+    if (!location.name || !location.description || !location.image || !location.latitude || !location.longitude) {
         return {
             status: false,
             message: "Los campos no pueden quedar vacios"
@@ -28,7 +28,7 @@ export default function LocationValidator(location) {
         }
     }
 
-    if (location.coords.lat == "" && location.coords.lng == "") {
+    if (location.latitude == "" && location.longitude == "") {
         return {
             status: false,
             message: "Elija una ubicación para esta localidad"

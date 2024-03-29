@@ -40,8 +40,8 @@ export const createNewLocation = async (location) => {
   formData.append('name', location.name);
   formData.append('description', location.description);
   formData.append('image', location.image);
-  formData.append('latitude', location.coords.lat);
-  formData.append('longitude', location.coords.lng);
+  formData.append('latitude', location.latitude);
+  formData.append('longitude', location.longitude);
 
   return api.post('/location', formData, {
     headers: {
@@ -56,16 +56,30 @@ export const createNewLocation = async (location) => {
   });
 };
 
+
+export const getOneLocation = async (id) => {
+  return api.get(`/location/${id}`)
+    .then((response) => {
+      return response.data.location;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 export const updateLocation = async (location) => {
   const formData = new FormData();
+
+  console.log("Location que viene al backend")
+  console.log(location.uid);
   
   formData.append('name', location.name);
   formData.append('description', location.description);
   formData.append('image', location.image);
-  formData.append('latitude', location.coords.lat);
-  formData.append('longitude', location.coords.lng);
+  formData.append('latitude', location.latitude);
+  formData.append('longitude', location.longitude);
 
-  return api.put(`/location/${location.id}`, formData, {
+  return api.put(`/location/${location.uid}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
     },

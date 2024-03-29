@@ -38,7 +38,7 @@ export default function LocateCard({ location, loading }) {
         >
           <img
             className="absolute inset-0 h-full w-full object-cover rounded-lg"
-            src={`${CORE_IMAGES_URL}/${location.image}`}
+            src={`${CORE_IMAGES_URL}/uploads/${location.image}`}
             alt="Card Image"
           />
           <div className="absolute inset-0 bg-gray-900 opacity-40 rounded-lg"></div>{" "}
@@ -47,7 +47,7 @@ export default function LocateCard({ location, loading }) {
             <h2 className="text-xl font-semibold">{location.name}</h2>
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-              {showMenu === location && <ActionsPopUp location={selectedLocation} />}
+              {showMenu === location && <ActionsPopUp location={location} />}
             </div>
           </div>
         </div>

@@ -10,17 +10,19 @@ const ICON = icon({
 })
 
 
-export default function SelectMapLocations({ onClick }) {
+export default function SelectMapLocations({ onClick, coordsToEdit = [13.680712, -89.236230], idZoomedToPosition = false }) {
 
 
-    const [position, setPosition] = useState([13.680712, -89.236230]) // Pocision inicial
+    const [position, setPosition] = useState(coordsToEdit) // Pocision inicial
+
+    console.log(position);
 
 
     const MapCoords = () => {
         useMapEvents({
             click(e) {
                 setPosition([e.latlng.lat, e.latlng.lng]);
-                onClick({ lat: e.latlng.lat, lng: e.latlng.lng });
+                onClick(e.latlng.lat, e.latlng.lng);
             }
         });
         return null;
@@ -33,7 +35,9 @@ export default function SelectMapLocations({ onClick }) {
 
                 <TileLayer
                     url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-                    maxZoom={20}
+
+
+                    maxZoom={idZoomedToPosition ? 50 : 30}
                     subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                 />
 
