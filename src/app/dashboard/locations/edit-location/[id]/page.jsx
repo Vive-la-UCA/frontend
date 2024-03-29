@@ -29,8 +29,8 @@ export default function Page({ params }) {
     name: '',
     image: null,
     description: '',
-    latitude: 13.680712,
-    longitude: -89.236230,
+    latitude: null,
+    longitude: null,
   });
 
   const getNameHandler = (e) => {
@@ -46,8 +46,8 @@ export default function Page({ params }) {
     setFormLocation(prevState => ({ ...prevState, description: e.target.value }));
   }
 
-  const getLocationCordsHandler = (e) => {
-    setFormLocation(prevState => ({ ...prevState, latitude: e.lat, longitude: e.lng }));
+  const getLocationCordsHandler = (latitude, longitude) => {
+    setFormLocation(prevState => ({ ...prevState, latitude: latitude, longitude: longitude }));
   }
 
   const submitEditHandler = async (e) => {
@@ -97,7 +97,11 @@ export default function Page({ params }) {
         </div>
 
         <p className="font-bold">Seleccionar ubicación</p>
-        <Map onClick={getLocationCordsHandler} idZoomedToPosition={true} coordsToEdit={[parseFloat(formLocation.latitude), parseFloat(formLocation.longitude)]} />
+        {formLocation.latitude && formLocation.longitude ? (
+          <Map onClick={getLocationCordsHandler} idZoomedToPosition={true} coordsToEdit={[parseFloat(formLocation.latitude), parseFloat(formLocation.longitude)]} />
+        ) : (
+          "Cargando ubicación..."
+        )}
 
         <div className="flex flex-row justify-center w-full">
           <button

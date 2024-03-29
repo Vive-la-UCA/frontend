@@ -4,6 +4,7 @@ import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { MapView } from "..";
 
 export default function InfoLocation({ open, onClose, location }) {
+  console.log(location);
   function handleClose(e) {
     // Verificar si se hizo clic fuera del contenido del modal
     if (e.target === e.currentTarget) {
@@ -26,7 +27,7 @@ export default function InfoLocation({ open, onClose, location }) {
         />
         <div className="flex items-center w-2/5 mt-0 py-6 px-6 justify-center">
           <img
-            src={`${CORE_IMAGES_URL}/${location.image}`}
+            src={`${CORE_IMAGES_URL}/uploads/${location.image}`}
             alt="Foto Localidad"
             className="rounded-lg object-cover w-full h-full"
           />
