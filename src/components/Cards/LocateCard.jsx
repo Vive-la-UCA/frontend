@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import InfoLocation from "@/components/popups/InfoLocation";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
@@ -47,7 +47,7 @@ export default function LocateCard({ location, loading }) {
             <h2 className="text-xl font-semibold">{location.name}</h2>
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-              {showMenu === location && <ActionsPopUp location={location} />}
+              {showMenu === location && <ActionsPopUp routeEdit={`/dashboard/locations/edit-location/${location.uid}`} routeDelete={`/dashboard/locations/delete-location/${location.uid}`} />}
             </div>
           </div>
         </div>
