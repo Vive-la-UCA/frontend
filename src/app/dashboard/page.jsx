@@ -1,16 +1,15 @@
-import CardResume from "@/components/CardResume";
-import UserCard from "@/components/UserCard";
-import RuteCard from "@/components/RuteCard";
+import CardResumeDashboard from "@/components/Cards/CardResumeDashboard";
+import UserCard from "@/components/Cards/UserCard";
+import RuteCard from "@/components/Cards/RuteCardDashboard";
 import { Suspense } from "react";
 
 export default function Page() {
   return (
     <>
       <h1 className="text-3xl font-semibold mb-4">Dashboard</h1>
-
       <div className="flex flex-row gap-5 my-6">
         <Suspense fallback="Cargando">
-          <CardResume />
+          <CardResumeDashboard />
         </Suspense>
       </div>
 

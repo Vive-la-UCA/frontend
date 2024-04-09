@@ -11,7 +11,7 @@ const CardResumeData = [
 
 //Acá se harian los fetch de los numeros
 
-export default function CardResume() {
+export default function CardResumeDashboard() {
   return (
     <>
       {
