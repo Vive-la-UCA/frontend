@@ -4,11 +4,18 @@ import InfoLocation from "@/components/popups/InfoLocation";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { CardSkeleton } from "@/components/skeletons/CardSkeleton"; // Importa tu componente de skeleton
 import ActionsPopUp from "../popups/ActionsPopUp";
+import IsSecurePopUp from "../popups/IsSecurePopUp";
+import { deleteLocation } from "@/services/data/Location.service";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function LocateCard({ location, loading }) {
+export default function LocateCard({ location, loading, onDeleteLocation }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showMenu, setShowMenu] = useState(null);
   const [showInfoLocation, setShowInfoLocation] = useState(false);
+  const [showISecurePopUp, setShowISecurePopUp] = useState(false);
+  const [locateToDeleteId, setLocateToDeleteId] = useState(null);
 
   // Función para manejar el clic en el menú de tres puntos
   const handleMenuClick = (location, e) => {
@@ -16,12 +23,35 @@ export default function LocateCard({ location, loading }) {
     setShowMenu(showMenu === location ? null : location);
   };
 
-  // Función para manejar el clic en la tarjeta
   const handleCardClick = (location) => {
     if (showMenu === location) return;
     setSelectedLocation(location);
     setShowInfoLocation(true);
   };
+
+  async function handleDeleteCardFromDatabase() {
+    try {
+      // Eliminar la ubicación localmente
+      onDeleteLocation(location.uid);
+      // Mostrar un mensaje de éxito
+    } catch (error) {
+      console.error("Error al eliminar la ubicación:", error);
+      // Mostrar un mensaje de error
+      toast.error("Error al eliminar la ubicación");
+    } finally {
+      // Cerrar el popup
+      setShowISecurePopUp(false);
+    }
+  }
+
+  const handleDeleteCard = () => {
+    setShowISecurePopUp(true);
+    setLocateToDeleteId(location.uid);
+  };
+
+  const handleClosePopUp = () => {
+    setShowISecurePopUp(false);
+  }
 
   // Renderizar el skeleton mientras se carga la ubicación
   if (loading) {
@@ -30,6 +60,7 @@ export default function LocateCard({ location, loading }) {
 
   return (
     <div>
+      <ToastContainer />
       <div>
         <div
           key={location.name}
@@ -47,7 +78,7 @@ export default function LocateCard({ location, loading }) {
             <h2 className="text-xl font-semibold">{location.name}</h2>
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-              {showMenu === location && <ActionsPopUp routeEdit={`/dashboard/locations/edit-location/${location.uid}`} routeDelete={`/dashboard/locations/delete-location/${location.uid}`} />}
+              {showMenu === location && <ActionsPopUp routeEdit={`/dashboard/locations/edit-location/${location.uid}`} handleDelete={handleDeleteCard} title={`Esta seguro de eliminar la localidad ${location.name}`} />}
             </div>
           </div>
         </div>
@@ -61,6 +92,10 @@ export default function LocateCard({ location, loading }) {
           />
         )}
       </div>
+
+      {
+        showISecurePopUp && <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40"><IsSecurePopUp functionToNo={handleClosePopUp} functionToYes={handleDeleteCardFromDatabase} title={`¿Esta seguro de eliminar la localidad ${location.name}?`} /></div>
+      }
     </div>
   );
 }

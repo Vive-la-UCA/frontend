@@ -1,7 +1,9 @@
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
 import Link from "next/link";
 
-export default function ActionsPopUp({ routeEdit, routeDelete }) {
+export default function ActionsPopUp({ routeEdit, handleDelete }) {
+
+
 
 
 
@@ -16,13 +18,14 @@ export default function ActionsPopUp({ routeEdit, routeDelete }) {
           <p className="text-gray-800 p-1">Editar</p>
         </Link>
         <hr className="my-1 border-gray-300" />{" "}
-        <Link href={routeDelete} className="flex items-center rounded-md hover:bg-gray-200">
+        <button className="flex items-center rounded-md hover:bg-gray-200" onClick={() => handleDelete()}>
           <MdDeleteOutline className="text-gray-800 size-5 ml-1" />
-          {/* Alinear verticalmente el icono con el texto */}
           <p className="text-gray-800 p-1">Eliminar</p>
-        </Link>
+        </button>
         <div className="absolute top-3 -left-3 w-3 h-3 bg-white transform rotate-45"></div>
       </div>
+
+
     </div>
   );
 }
