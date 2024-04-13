@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaChevronDown } from "react-icons/fa6";
 import { getAllLocations } from '@/services/data/Location.service';
 import { CORE_IMAGES_URL } from "@/app/constants/session";
+import { IoClose } from "react-icons/io5";
 
 export function Dropdown({ title, onClickDropwdown }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,11 @@ export function Dropdown({ title, onClickDropwdown }) {
         }
         fetchLocations();
     }, []);
+
+    const quitOneLocation = (item) => {
+        const newLocations = selectedLocations.filter(location => location.uid !== item.uid);
+        setSelectedLocations(newLocations);
+    };
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -84,10 +90,18 @@ export function Dropdown({ title, onClickDropwdown }) {
                     selectedLocations.length > 0 &&
                     <div className="flex flex-col gap-5 mt-2">
                         {selectedLocations.map(item => (
-                            <div className="flex flex-row w-full justify-start gap-2 items-center">
-                                <img className="rounded-lg h-10 w-10 object-cover" src={`${CORE_IMAGES_URL}/uploads/${item.image}`} alt="" />
-                                <p>{item.name}</p>
+                            <div>
+                                <div className="flex flex-row justify-between items-center">
+                                    <div className='flex flex-row w-full justify-start gap-2 items-center'>
+                                        <img className="rounded-lg h-10 w-10 object-cover" src={`${CORE_IMAGES_URL}/uploads/${item.image}`} alt="" />
+                                        <p>{item.name}</p>
+                                    </div>
+                                    <IoClose size={20} onClick={() => quitOneLocation(item)} className='bg-gray-200 rounded-full cursor-pointer' />
+
+                                </div>
+                                <div className='h-[2px] mt-2 w-full bg-gray-200'></div>
                             </div>
+
                         ))}
                     </div>
                 }

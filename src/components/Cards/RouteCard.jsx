@@ -2,22 +2,29 @@ import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { BsThreeDots } from "react-icons/bs";
 import ActionsPopUp from "../popups/ActionsPopUp";
 import { useState } from "react";
+import InfoRoute from "../popups/InfoRoute";
 
 export function RouteCard({ route }) {
 
     const [showMenu, setShowMenu] = useState(null);
+    const [showInfoRoute, setShowInfoRoute] = useState(false);
 
     const handleMenuClick = (route, e) => {
         e.stopPropagation();
         setShowMenu(showMenu === route ? null : route);
     };
 
+    const handleCardClick = () => {
+        if (showMenu === route) return;
+        setShowInfoRoute(true);
+    };
 
     return (
         <div>
-            <div>
+            <div >
                 <div
                     key={route.name}
+                    onClick={() => handleCardClick(route)}
                     className="relative w-44 max-w-lg shadow-xl rounded-lg h-56 cursor-pointer"
                 >
                     <img
@@ -36,7 +43,13 @@ export function RouteCard({ route }) {
                     </div>
                 </div>
 
-                {/** Show more info */}
+                {showInfoRoute && (
+                    <InfoRoute
+                        open={showInfoRoute}
+                        onClose={() => setShowInfoRoute(false)}
+                        route={route}
+                    />
+                )}
             </div>
         </div>
     );

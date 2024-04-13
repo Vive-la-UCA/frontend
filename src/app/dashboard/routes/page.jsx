@@ -19,17 +19,12 @@ export default function Page() {
     fetchRoutes();
   }, []);
 
-
-
-
   return (
     <div>
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-semibold mb-4">Rutas</h1>
         <div className="flex pt-2 flex-row justify-between w-full items-center gap-2">
           <SearchBar />
-          {/* Here is the PrincipalButton component */}
           <PrincipalButton link="/dashboard/routes/create-route" text={"Crear Ruta"} type={"button"} Icon={<IoIosAddCircle size={25} />} />
         </div>
       </div>
@@ -41,9 +36,6 @@ export default function Page() {
           ))
         }
       </div>
-
-
-
 
     </div>
   );

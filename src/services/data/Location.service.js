@@ -61,6 +61,7 @@ export const getOneLocation = async (id) => {
   return api.get(`/location/${id}`)
     .then((response) => {
       return response.data.location;
+    
     })
     .catch((error) => {
       return error;

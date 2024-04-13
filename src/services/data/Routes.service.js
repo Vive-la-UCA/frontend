@@ -32,3 +32,23 @@ export const getAllRoutes = async () => {
       return error;
     });
 };
+
+export const createNewRoute = async (route) => {
+  const formData = new FormData();
+
+  formData.append('name', route.name);
+  formData.append('image', route.image);
+  formData.append('locations', route.locations);
+
+  return api.post('/route', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
+    },
+  })
+  .then((response) => {
+    return response;
+  })
+  .catch((error) => {
+    return error;
+  });
+};

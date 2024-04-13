@@ -1,47 +1,62 @@
 "use client"
 
 import InputText from "@/components/Inputs/input-text";
-import { Suspense } from "react";
-import { TextArea } from "@/components/Inputs/TextArea";
 import ImageUpload from "@/components/Inputs/ImageUpload";
 import { Dropdown } from "@/components/Inputs/Dropdown";
-import { SelectedRoutes } from "@/components/selectedRoutes";
+import { createNewRoute } from "@/services/data/Routes.service";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
+import "react-toastify/dist/ReactToastify.css";
 
-let route = {
-    name: "",
-    description: "",
-    image: null,
-    locations: [],
-}
-
-const getNameHandler = (e) => {
-    route.name = e.target.value;
-}
-
-const getDescriptionHandler = (e) => {
-    route.description = e.target.value;
-}
-
-const getSelectedLocationHandler = (location) => {
-    route.locations = [...route.locations, location.uid];
-    console.log(route);
-}
-
-const getImageFileHandler = (file) => {
-    route.image = file;
-}
 
 export default function Page() {
+
+    const router = useRouter();
+
+    let route = {
+        name: "",
+        image: null,
+        locations: [],
+    }
+
+    const getNameHandler = (e) => {
+        route.name = e.target.value;
+    }
+
+    const getSelectedLocationHandler = (location) => {
+        route.locations = [...route.locations, location.uid];
+        console.log(route);
+    }
+
+    const getImageFileHandler = (file) => {
+        route.image = file;
+    }
+
+    async function submitHandler(e) {
+        e.preventDefault();
+
+        const response = await createNewRoute(route);
+        console.log(response);
+
+        if (response) {
+            toast.success("Ruta creada con éxito");
+        }
+
+        setTimeout(() => {
+            router.push("/dashboard/routes");
+        }, 2000);
+    }
+
     return (
         <div>
             <h1 className="text-3xl font-semibold mb-4">Crear una ruta</h1>
             <hr />
-
-            <form>
+            <ToastContainer />
+            <form onSubmit={submitHandler}>
                 <div className="flex flex-row justify-between w-full gap-4">
                     <div className="flex flex-col w-1/2">
                         <InputText title={"Nombre"} onChange={getNameHandler} />
-                        <TextArea title={"Descripción"} onChange={getDescriptionHandler} />
                         <Dropdown title={"Localidades"} onClickDropwdown={getSelectedLocationHandler} />
                     </div>
                     <ImageUpload onSelectedFile={getImageFileHandler} />
