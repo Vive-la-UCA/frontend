@@ -25,6 +25,12 @@ export const UserTable = () => {
         }
       })
 
+      // count id of the badges for each user and set the number according to the number of badges
+      users.forEach(user => {
+        const badges = user.badges.length
+        user.badges = badges
+      })
+
       setData(users)
     }
     fetchUsers()
@@ -35,7 +41,7 @@ export const UserTable = () => {
     name: user.name,
     email: user.email,
     role: user.role,
-    badges: 10
+    badges: user.badges
   }))
 
   const columns = [
