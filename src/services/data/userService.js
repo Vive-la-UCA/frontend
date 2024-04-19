@@ -22,7 +22,7 @@ api.interceptors.request.use(
 
 const GetUsers = async () => {
   return api
-    .get('/users')
+    .get('/users/all')
     .then(response => {
       return response.data.users
     })

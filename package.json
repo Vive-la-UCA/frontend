@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "antd": "^5.16.2",
     "axios": "^1.6.8",
     "leaflet": "^1.9.4",
     "next": "^14.1.0",
