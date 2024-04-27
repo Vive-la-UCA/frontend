@@ -33,6 +33,16 @@ export const getAllRoutes = async () => {
     });
 };
 
+export const getOneRoute = async (id) => {
+  return api.get(`/route/${id}`)
+    .then((response) => {
+      return response.data.route;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
 export const createNewRoute = async (route) => {
   const formData = new FormData();
 
@@ -41,6 +51,36 @@ export const createNewRoute = async (route) => {
   formData.append('locations', route.locations);
 
   return api.post('/route', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
+    },
+  })
+  .then((response) => {
+    return response;
+  })
+  .catch((error) => {
+    return error;
+  });
+};
+
+export const updateRoute = async (route) => {
+  const formData = new FormData();
+
+  formData.append('name', route.name);
+  formData.append('image', route.image);
+
+  let locationsId = []
+
+  route.locations.forEach(location => {
+    locationsId.push(location.uid);
+  });
+
+  formData.append('locations', locationsId);
+
+  console.log("Info mandada al back");
+
+  console.log(formData);
+  return api.put(`/route/${route.uid}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
     },

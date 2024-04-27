@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FaChevronDown } from "react-icons/fa6";
-import { getAllLocations } from '@/services/data/Location.service';
+import { getAllLocations, getOneLocation } from '@/services/data/Location.service';
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { IoClose } from "react-icons/io5";
 
-export function Dropdown({ title, onClickDropwdown }) {
+export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocation = null }) {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [locations, setLocations] = useState([]);
@@ -13,14 +13,21 @@ export function Dropdown({ title, onClickDropwdown }) {
     useEffect(() => {
         async function fetchLocations() {
             const locations = await getAllLocations();
+            if (values != null) {
+                setSelectedLocations(values);
+            }
             setLocations(locations);
         }
+
         fetchLocations();
-    }, []);
+
+    }, [values]);
+
 
     const quitOneLocation = (item) => {
         const newLocations = selectedLocations.filter(location => location.uid !== item.uid);
-        setSelectedLocations(newLocations);
+        if (onRemoveLocation) onRemoveLocation(item);
+        setSelectedLocations(newLocations)
     };
 
     const toggleDropdown = () => {
@@ -28,10 +35,10 @@ export function Dropdown({ title, onClickDropwdown }) {
     };
 
     const handleSelectedItems = (item) => {
+        if (selectedLocations.find(location => location.uid === item.uid)) return;
         setSelectedLocations([...selectedLocations, item]);
         onClickDropwdown(item);
     };
-
 
 
     const handleSearchChange = (e) => {
@@ -90,7 +97,7 @@ export function Dropdown({ title, onClickDropwdown }) {
                     selectedLocations.length > 0 &&
                     <div className="flex flex-col gap-5 mt-2">
                         {selectedLocations.map(item => (
-                            <div>
+                            <div key={item.uid}>
                                 <div className="flex flex-row justify-between items-center">
                                     <div className='flex flex-row w-full justify-start gap-2 items-center'>
                                         <img className="rounded-lg h-10 w-10 object-cover" src={`${CORE_IMAGES_URL}/uploads/${item.image}`} alt="" />
