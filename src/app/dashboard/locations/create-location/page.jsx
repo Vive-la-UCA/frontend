@@ -38,8 +38,8 @@ export default function Page() {
     }
 
     const getLocationCordsHandler = (longitude, latitude) => {
-        location.latitude = latitude;
-        location.longitude = longitude;
+        location.latitude = longitude;
+        location.longitude = latitude;
     }
 
     async function submitHandler(e) {
