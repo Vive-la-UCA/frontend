@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaChevronDown } from "react-icons/fa6";
-import { getAllLocations, getOneLocation } from '@/services/data/Location.service';
+import { getAllLocations} from '@/services/data/Location.service';
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { IoClose } from "react-icons/io5";
 
