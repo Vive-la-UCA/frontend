@@ -6,8 +6,8 @@ import { getAllLocations, getQuantityOfLocations } from "@/services/data/Locatio
 import PrincipalButton from "@/components/buttons/principal-button";
 import { IoIosAddCircle } from "react-icons/io";
 import { Pagination } from "@/components/Inputs/Pagination";
-export default function Page() {
 
+export default function Page() {
   const [locations, setLocations] = useState([]);
   const [totalLocations, setTotalLocations] = useState(0);
   const limit = 10;
@@ -31,10 +31,20 @@ export default function Page() {
     setPage(page);
   }
 
+  const onDeleteLocation = async (locationId) => {
+    try {
+      await deleteLocation(locationId);
+      setLocations(locations.filter(location => location.uid !== locationId));
+    } catch (error) {
+      console.error("Error al eliminar la ubicación:", error);
+      toast.error("Error al eliminar la ubicación");
+    }
+  };
+
   return (
     <>
-      <div>
-        <h1 className="text-3xl font-semibold mb-4">Localidades</h1>
+      <div className="mx-10">
+        <h1 className="text-3xl font-semibold mb-4 ">Localidades</h1>
         <div className="flex flex-row justify-between w-full items-center gap-2">
           <SearchBar />
           <PrincipalButton link="/dashboard/locations/create-location" text={"Crear Localidad"} type={"button"} Icon={<IoIosAddCircle size={25} />} />
@@ -50,6 +60,9 @@ export default function Page() {
       <div>
         <Pagination onStepped={onStepped} totalElements={totalLocations} limit={limit} />
       </div>
+
+      <ToastContainer />
     </>
   );
 }
+

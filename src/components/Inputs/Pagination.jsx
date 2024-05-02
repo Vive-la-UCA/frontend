@@ -9,8 +9,6 @@ export function Pagination({ onStepped, totalElements, limit, currentPage }) {
         if (page > 0) {
             onStepped((page - limit));
             setPage((page - limit));
-        } else {
-            console.log("estas en la pagina inicial")
         }
     }
 
@@ -23,8 +21,6 @@ export function Pagination({ onStepped, totalElements, limit, currentPage }) {
         if (page < pages) {
             onStepped((page + limit));
             setPage((page + limit));
-        } else {
-            console.log("estas en la pagina final")
         }
     }
 

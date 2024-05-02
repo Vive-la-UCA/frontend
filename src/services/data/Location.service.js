@@ -72,6 +72,7 @@ export const getOneLocation = async (id) => {
   return api.get(`/location/${id}`)
     .then((response) => {
       return response.data.location;
+    
     })
     .catch((error) => {
       return error;
@@ -103,3 +104,13 @@ export const updateLocation = async (location) => {
   });
 };
 
+export const deleteLocation = async (uid) => {
+  return api.delete(`/location/${uid}`)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+  
