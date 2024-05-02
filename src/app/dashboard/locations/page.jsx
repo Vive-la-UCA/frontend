@@ -6,6 +6,8 @@ import { getAllLocations, getQuantityOfLocations } from "@/services/data/Locatio
 import PrincipalButton from "@/components/buttons/principal-button";
 import { IoIosAddCircle } from "react-icons/io";
 import { Pagination } from "@/components/Inputs/Pagination";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const [locations, setLocations] = useState([]);
