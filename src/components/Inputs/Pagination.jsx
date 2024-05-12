@@ -51,8 +51,9 @@ export function Pagination({ onStepped, totalElements, limit, currentPage }) {
                                 key={i}
                                 href="#"
                                 onClick={() => handleNumberClick(i + 1)}
-                                className={`relative inline-flex items-center px-4 py-2 text-sm ${i + 1 === currentPage ? 'text-white bg-gray-600' : 'text-gray-700 bg-white border border-fuchsia-100 hover:bg-fuchsia-200'
+                                className={`relative inline-flex items-center px-4 py-2 text-sm ${i * 10 === page ? 'text-white bg-blue-principal' : 'text-gray-700 bg-white border border-gray-100 hover:bg-blue-900 hover:text-white'
                                     } font-medium leading-5 rounded-md transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10`}
+
                             >
                                 {i + 1}
                             </a>
