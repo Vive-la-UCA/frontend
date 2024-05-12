@@ -23,10 +23,10 @@ api.interceptors.request.use((config) => {
 });
 
 // Obtener todas las rutas
-export const getAllRoutes = async () => {
-  return api.get('/route')
+export const getAllRoutes = async ({page}) => {
+  return api.get(`/route?limit=10&skip=${page}`)
     .then((response) => {
-      return response.data.routes;
+      return response;
     })
     .catch((error) => {
       return error;
@@ -48,8 +48,16 @@ export const createNewRoute = async (route) => {
 
   formData.append('name', route.name);
   formData.append('image', route.image);
-  formData.append('locations', route.locations);
 
+  route.locations.forEach(location => {
+    formData.append('locations', location);
+  });
+
+  
+
+  console.log("Info mandada al back");
+
+  console.log(formData);
   return api.post('/route', formData, {
     headers: {
       'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
@@ -69,13 +77,12 @@ export const updateRoute = async (route) => {
   formData.append('name', route.name);
   formData.append('image', route.image);
 
-  let locationsId = []
-
+  console.log("Locations" + route)
   route.locations.forEach(location => {
-    locationsId.push(location.uid);
+    formData.append('locations', location.uid);
   });
 
-  formData.append('locations', locationsId);
+  
 
   console.log("Info mandada al back");
 

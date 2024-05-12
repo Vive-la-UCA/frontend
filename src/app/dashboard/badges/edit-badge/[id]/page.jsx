@@ -97,7 +97,7 @@ export default function Page({ params }) {
               value={formRoute.name}
             />
             <DropdownRoutes
-              title={"Localidad"}
+              title={"Ruta"}
               onClickDropdown={getSelectedLocationHandler}
               values={formRoute.route}
               onRemoveLocation={removeLocationFromFormRoute}

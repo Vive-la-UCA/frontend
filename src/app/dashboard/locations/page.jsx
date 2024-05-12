@@ -2,23 +2,36 @@
 import SearchBar from "@/components/Inputs/SearchBar";
 import LocateCard from "@/components/Cards/LocateCard";
 import { useEffect, useState } from "react";
-import { getAllLocations, deleteLocation } from "@/services/data/Location.service";
+import { getAllLocations, getQuantityOfLocations } from "@/services/data/Location.service";
 import PrincipalButton from "@/components/buttons/principal-button";
 import { IoIosAddCircle } from "react-icons/io";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
+import { Pagination } from "@/components/Inputs/Pagination";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const [locations, setLocations] = useState([]);
+  const [totalLocations, setTotalLocations] = useState(0);
+  const limit = 10;
+  const [page, setPage] = useState(0);
+
+
 
   useEffect(() => {
     async function fetchLocations() {
-      const locs = await getAllLocations();
+      const locs = await getAllLocations({ page });
+      const quantity = await getQuantityOfLocations();
+      setTotalLocations(quantity);
       setLocations(locs);
     }
+
     fetchLocations();
-  }, []);
+  }, [page]);
+
+
+  function onStepped(page) {
+    setPage(page);
+  }
 
   const onDeleteLocation = async (locationId) => {
     try {
@@ -39,14 +52,19 @@ export default function Page() {
           <PrincipalButton link="/dashboard/locations/create-location" text={"Crear Localidad"} type={"button"} Icon={<IoIosAddCircle size={25} />} />
         </div>
       </div>
-
-      <div className="grid grid-cols-4 mx-10 mt-5 gap-10">
-        {locations.map(location => (
-          <LocateCard key={location.id} location={location} onDeleteLocation={onDeleteLocation} />
-        ))}
+      <div className="mt-10 mx-10 flex flex-row flex-wrap gap-10">
+        {
+          locations.map((location) => (
+            <LocateCard key={location.id} location={location} />
+          ))
+        }
+      </div >
+      <div>
+        <Pagination onStepped={onStepped} totalElements={totalLocations} limit={limit} />
       </div>
 
       <ToastContainer />
     </>
   );
 }
+

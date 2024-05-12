@@ -1,9 +1,8 @@
 "use client";
-
 import InputText from "@/components/Inputs/input-text";
 import ImageUpload from "@/components/Inputs/ImageUpload";
 import { createNewBadge } from "@/services/data/Badge.service";
-import { DropdownRoutes } from "@/components/Inputs/DropdownRoutes";
+import DropdownRoutes from "@/components/Inputs/DropdownRoutes";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -38,7 +37,7 @@ export default function Page() {
     console.log(response);
 
     if (response) {
-      toast.success("Ruta creada con éxito");
+      toast.success("Insignia creada con éxito");
     }
 
     setTimeout(() => {
@@ -48,7 +47,7 @@ export default function Page() {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold mb-4">Crear un badge</h1>
+      <h1 className="text-3xl font-semibold mb-4">Crear una insignia</h1>
       <hr />
       <ToastContainer />
       <form onSubmit={submitHandler}>
@@ -56,7 +55,7 @@ export default function Page() {
           <div className="flex flex-col w-1/2">
             <InputText title={"Nombre"} onChange={getNameHandler} />
             <DropdownRoutes
-              title={"Rutas"}
+              title={"Ruta"}
               onClickDropdown={getSelectedRouteHandler}
             />
           </div>
@@ -68,7 +67,7 @@ export default function Page() {
             type="submit"
             className="bg-black text-white text-2xl py-2 px-5 rounded-xl mt-5"
           >
-            Crear ruta
+            Crear insignia
           </button>
         </div>
       </form>
