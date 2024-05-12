@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaChevronDown } from "react-icons/fa6";
-import { getAllLocations} from '@/services/data/Location.service';
+import { getAllLocations } from '@/services/data/Location.service';
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { IoClose } from "react-icons/io5";
 
@@ -12,7 +12,7 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
 
     useEffect(() => {
         async function fetchLocations() {
-            const locations = await getAllLocations();
+            const locations = await getAllLocations(0);
             if (values != null) {
                 setSelectedLocations(values);
             }
@@ -22,7 +22,6 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
         fetchLocations();
 
     }, [values]);
-
 
     const quitOneLocation = (item) => {
         const newLocations = selectedLocations.filter(location => location.uid !== item.uid);
@@ -39,7 +38,6 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
         setSelectedLocations([...selectedLocations, item]);
         onClickDropwdown(item);
     };
-
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -68,7 +66,7 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
                 </div>
 
                 {isOpen && (
-                    <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                    <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none max-h-60 overflow-y-auto" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         {/* Search input */}
                         <div className="px-4 pt-2 pb-1">
                             <input
@@ -104,18 +102,13 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
                                         <p>{item.name}</p>
                                     </div>
                                     <IoClose size={20} onClick={() => quitOneLocation(item)} className='bg-gray-200 rounded-full cursor-pointer' />
-
                                 </div>
                                 <div className='h-[2px] mt-2 w-full bg-gray-200'></div>
                             </div>
-
                         ))}
                     </div>
                 }
-
-
             </div>
-
         </label>
     );
 };

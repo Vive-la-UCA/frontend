@@ -52,7 +52,7 @@ export default function Page() {
           <PrincipalButton link="/dashboard/locations/create-location" text={"Crear Localidad"} type={"button"} Icon={<IoIosAddCircle size={25} />} />
         </div>
       </div>
-      <div className="mt-10 flex flex-row flex-wrap gap-10">
+      <div className="mt-10 mx-10 flex flex-row flex-wrap gap-10">
         {
           locations.map((location) => (
             <LocateCard key={location.id} location={location} />

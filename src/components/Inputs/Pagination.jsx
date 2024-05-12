@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa6";
 
 export function Pagination({ onStepped, totalElements, limit, currentPage }) {
 
     const pages = Math.ceil(totalElements / limit);
     const [page, setPage] = useState(0);
+
+    console.log("page" + page)
+    console.log("currentpage" + currentPage)
+    console.log("pages" + pages)
 
     function handlePreviousClick() {
         if (page > 0) {
@@ -34,11 +40,11 @@ export function Pagination({ onStepped, totalElements, limit, currentPage }) {
                         <a
                             href="#"
                             onClick={handlePreviousClick}
-                            className={`relative inline-flex items-center px-4 py-2 text-sm ${currentPage === 1 ? 'cursor-not-allowed text-gray-400' : 'text-white bg-gradient-to-r from-violet-300 to-indigo-300 border border-fuchsia-100 hover:border-violet-100 hover:text-white'
-                                } font-semibold leading-5 rounded-md transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10`}
+                            className={`relative inline-flex items-center px-4 py-2 text-sm ${page === 0 ? 'cursor-not-allowed' : 'text-white bg-blue-principal'
+                                } font-semibold leading-5 rounded-md transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue bg-blue-deactivate text-white focus:z-10`}
                             aria-disabled={currentPage === 1}
                         >
-                            Previous
+                            <FaChevronLeft />
                         </a>
                         {Array.from({ length: pages }, (_, i) => (
                             <a
@@ -54,11 +60,11 @@ export function Pagination({ onStepped, totalElements, limit, currentPage }) {
                         <a
                             href="#"
                             onClick={handleNextClick}
-                            className={`relative inline-flex items-center px-4 py-2 text-sm ${currentPage === pages ? 'cursor-not-allowed text-gray-400' : 'text-white bg-gradient-to-r from-violet-300 to-indigo-300 border border-fuchsia-100 hover:border-violet-100 hover:text-white'
-                                } font-semibold leading-5 rounded-md transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10`}
-                            aria-disabled={currentPage === pages}
+                            className={`relative inline-flex items-center px-4 py-2 text-sm ${page === pages * 10 - 10 ? 'cursor-not-allowed' : 'text-white bg-blue-principal'
+                                } font-semibold leading-5 rounded-md transition duration-150 ease-in-out focus:outline-none focus:shadow-outline-blue bg-blue-deactivate text-white focus:z-10`}
+                            aria-disabled={currentPage === 1}
                         >
-                            Next
+                            <FaChevronRight />
                         </a>
                     </nav>
                 </div>

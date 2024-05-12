@@ -13,6 +13,7 @@ module.exports = {
         'background': '#F5F6F7',
         'yellow-badge' : '#DE9C1C',
         'blue-principal': '#012255',
+        'blue-deactivate': '#3F4855',
         'gray-primary': '#E6E6E6',
       },
       fontFamily: {
