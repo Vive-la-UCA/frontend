@@ -22,8 +22,8 @@ api.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
-export const getAllLocations = async () => {
-  return api.get('/location')
+export const getAllLocations = async ({page}) => {
+  return api.get(`/location?limit=10&skip=${page}`)
     .then((response) => {
       return response.data.locations;
     })
@@ -31,6 +31,17 @@ export const getAllLocations = async () => {
       return error;
     });
 };
+
+export const getQuantityOfLocations = async () => {
+  return api.get(`/location?limit=2`)
+    .then((response) => {
+      return response.data.total;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 
 export const createNewLocation = async (location) => {
   const formData = new FormData();
@@ -61,6 +72,7 @@ export const getOneLocation = async (id) => {
   return api.get(`/location/${id}`)
     .then((response) => {
       return response.data.location;
+    
     })
     .catch((error) => {
       return error;
@@ -92,3 +104,13 @@ export const updateLocation = async (location) => {
   });
 };
 
+export const deleteLocation = async (uid) => {
+  return api.delete(`/location/${uid}`)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+  
