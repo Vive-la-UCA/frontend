@@ -23,24 +23,71 @@ api.interceptors.request.use((config) => {
 });
 
 // Obtener todas las rutas
-export const getAllRoutes = async () => {
-  return api.get('/route')
+export const getAllRoutes = async ({page}) => {
+  return api.get(`/route?limit=10&skip=${page}`)
     .then((response) => {
-      return response.data.routes;
+      return response;
     })
     .catch((error) => {
       return error;
     });
 };
 
+export const getOneRoute = async (id) => {
+  return api.get(`/route/${id}`)
+    .then((response) => {
+      return response.data.route;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
 export const createNewRoute = async (route) => {
   const formData = new FormData();
 
   formData.append('name', route.name);
   formData.append('image', route.image);
-  formData.append('locations', route.locations);
 
+  route.locations.forEach(location => {
+    formData.append('locations', location);
+  });
+
+  
+
+  console.log("Info mandada al back");
+
+  console.log(formData);
   return api.post('/route', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
+    },
+  })
+  .then((response) => {
+    return response;
+  })
+  .catch((error) => {
+    return error;
+  });
+};
+
+export const updateRoute = async (route) => {
+  const formData = new FormData();
+
+  formData.append('name', route.name);
+  formData.append('image', route.image);
+
+  console.log("Locations" + route)
+  route.locations.forEach(location => {
+    formData.append('locations', location.uid);
+  });
+
+  
+
+  console.log("Info mandada al back");
+
+  console.log(formData);
+  return api.put(`/route/${route.uid}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data', // Especificar el tipo de contenido
     },

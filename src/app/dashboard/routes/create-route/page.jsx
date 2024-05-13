@@ -43,6 +43,9 @@ export default function Page() {
             toast.success("Ruta creada con éxito");
         }
 
+        console.log("Imagen enviada al backend")
+        console.log(route);
+
         setTimeout(() => {
             router.push("/dashboard/routes");
         }, 2000);
