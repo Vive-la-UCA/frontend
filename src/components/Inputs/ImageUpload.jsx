@@ -19,6 +19,7 @@ export default function ImageUpload({ onSelectedFile, previewImageEdit = null })
             reader.onload = () => {
                 setPreviewImage(reader.result);
                 setNamePreviewImage(file.name);
+                console.log(file);
                 onSelectedFile(file);
             };
 
@@ -55,7 +56,7 @@ export default function ImageUpload({ onSelectedFile, previewImageEdit = null })
                         )
                     }
                     {
-                        previewImageEdit != null ? (
+                        previewImageEdit != null && previewImage == null ? (
                             <div className='flex flex-row justify-start items-center gap-4'>
                                 <img src={CORE_IMAGES_URL + "/uploads/" + previewImageEdit} alt='Imagen seleccionada' className='rounded-xl mt-5 w-16 h-16 object-cover' />
                                 <p>{previewImageEdit.slice(8)}</p> {/* Slice para quitar el nombre de la carpeta */}
