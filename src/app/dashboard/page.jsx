@@ -1,7 +1,8 @@
-import CardResumeDashboard from "@/components/Cards/CardResumeDashboard";
-import UserCard from "@/components/Cards/UserCard";
-import RuteCard from "@/components/Cards/RuteCardDashboard";
-import { Suspense } from "react";
+import CardResumeDashboard from '@/components/Cards/CardResumeDashboard'
+import UserCard from '@/components/Cards/UserCard'
+import RuteCard from '@/components/Cards/RuteCardDashboard'
+import { Suspense } from 'react'
+import { UserCardContainer } from '@/components/Cards/UserCardContainer'
 
 export default function Page() {
   return (
@@ -18,11 +19,7 @@ export default function Page() {
           <h2 className="text-xl font-semibold my-4">
             Usuarios con mas insignias
           </h2>
-          <div className="bg-white p-2 rounded-lg">
-            <UserCard />
-            <UserCard />
-            <UserCard />
-          </div>
+          <UserCardContainer />
         </div>
 
         <div className="w-1/2 pr-2">
@@ -33,5 +30,5 @@ export default function Page() {
         </div>
       </div>
     </>
-  );
+  )
 }
