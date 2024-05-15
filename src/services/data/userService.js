@@ -31,4 +31,15 @@ const GetUsers = async () => {
     })
 }
 
-export { GetUsers }
+const GetUsersPag = async ({ page }) => {
+  return api
+    .get(`/users?limit=10&skip=${page}`)
+    .then(response => {
+      return response
+    })
+    .catch(error => {
+      return error
+    })
+}
+
+export { GetUsers, GetUsersPag }
