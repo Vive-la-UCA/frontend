@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaChevronDown } from "react-icons/fa6";
-import { getAllLocations } from '@/services/data/Location.service';
+import { getLocationsWithoutPag } from '@/services/data/Location.service';
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { IoClose } from "react-icons/io5";
 
@@ -12,7 +12,7 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
 
     useEffect(() => {
         async function fetchLocations() {
-            const locations = await getAllLocations(0);
+            const locations = await getLocationsWithoutPag();
             if (values != null) {
                 setSelectedLocations(values);
             }
