@@ -8,10 +8,15 @@ export function RouteCard({ route }) {
 
     const [showMenu, setShowMenu] = useState(null);
     const [showInfoRoute, setShowInfoRoute] = useState(false);
+    const [showIsSecureDelete, setShowIsSecureDelete] = useState(false);
 
     const handleMenuClick = (route, e) => {
         e.stopPropagation();
         setShowMenu(showMenu === route ? null : route);
+    };
+
+    const openPopUpDelete = () => {
+        setShowIsSecureDelete(true);
     };
 
     const handleCardClick = () => {
@@ -38,7 +43,7 @@ export function RouteCard({ route }) {
                         <h2 className="text-xl font-semibold">{route.name}</h2>
                         <div onClick={(e) => handleMenuClick(route, e)}>
                             <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-                            {showMenu === route && <ActionsPopUp routeEdit={`/dashboard/routes/edit-route/${route.uid}`} routeDelete={`/dashboard/routes/delete-route/${route.uid}`} />}
+                            {showMenu === route && <ActionsPopUp routeEdit={`/dashboard/routes/edit-route/${route.uid}`} handleDelete={openPopUpDelete} />}
                         </div>
                     </div>
                 </div>
@@ -50,6 +55,7 @@ export function RouteCard({ route }) {
                         route={route}
                     />
                 )}
+
             </div>
         </div>
     );

@@ -30,18 +30,7 @@ export default function LocateCard({ location, loading, onDeleteLocation }) {
   };
 
   async function handleDeleteCardFromDatabase() {
-    try {
-      // Eliminar la ubicación localmente
-      onDeleteLocation(location.uid);
-      // Mostrar un mensaje de éxito
-    } catch (error) {
-      console.error("Error al eliminar la ubicación:", error);
-      // Mostrar un mensaje de error
-      toast.error("Error al eliminar la ubicación");
-    } finally {
-      // Cerrar el popup
-      setShowISecurePopUp(false);
-    }
+    onDeleteLocation(location.uid);
   }
 
   const handleDeleteCard = () => {
@@ -94,7 +83,15 @@ export default function LocateCard({ location, loading, onDeleteLocation }) {
       </div>
 
       {
-        showISecurePopUp && <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40"><IsSecurePopUp functionToNo={handleClosePopUp} functionToYes={handleDeleteCardFromDatabase} title={`¿Esta seguro de eliminar la localidad ${location.name}?`} /></div>
+        showISecurePopUp && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <IsSecurePopUp
+              functionToNo={handleClosePopUp}
+              functionToYes={handleDeleteCardFromDatabase}
+              title={`¿Está seguro de eliminar la localidad ${location.name}?`}
+            />
+          </div>
+        )
       }
     </div>
   );

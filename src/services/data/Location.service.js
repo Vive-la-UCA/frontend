@@ -104,13 +104,13 @@ export const updateLocation = async (location) => {
   });
 };
 
-export const deleteLocation = async (uid) => {
-  return api.delete(`/location/${uid}`)
+export const deleteLocation = async (id) => {
+  return api.delete(`/location/${id}`)
     .then((response) => {
-      return response;
+      return response.data
     })
     .catch((error) => {
       return error;
     });
-}
+};
   
