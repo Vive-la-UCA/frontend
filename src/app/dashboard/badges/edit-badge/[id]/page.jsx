@@ -78,7 +78,7 @@ export default function Page({ params }) {
         router.push("/dashboard/badges");
       }, 2000);
     } else {
-      toast.error("Error al crear el badge");
+      toast.error("Error al editar el badge");
     }
   };
 
