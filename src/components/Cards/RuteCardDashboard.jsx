@@ -1,17 +1,22 @@
-export default function RuteCard() {
+import { CORE_IMAGES_URL } from '@/app/constants/session'
+import Image from 'next/image'
+
+export default function RuteCard({ name, image }) {
   return (
     <div className="rounded-lg p-0 bg-white shadow-md flex items-center justify-between mb-2">
       <div className="flex items-center">
         <div className="w-24 h-24 mr-4 relative">
           {/* Contenedor para la imagen de la ruta */}
-          <img
+          <Image
             className="absolute inset-0 w-full h-full object-cover rounded-tl-lg rounded-tr-none rounded-bl-lg"
-            src="https://www.uca.edu.sv/cmr/wp-content/uploads/2016/02/Fachada.png"
+            src={`${CORE_IMAGES_URL}/uploads/${image}`}
             alt="Imagen de la Ruta"
+            width={150}
+            height={150}
           />
         </div>
-        <p className="text-lg font-semibold">Nombre de la Ruta</p>
+        <p className="text-lg font-semibold">{name}</p>
       </div>
     </div>
-  );
+  )
 }
