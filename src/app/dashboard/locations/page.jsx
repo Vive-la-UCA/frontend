@@ -35,15 +35,16 @@ export default function Page() {
   const onDeleteLocation = async (locationId) => {
     try {
       const deleteResponse = await deleteLocation(locationId);
-      setResponseDelete(deleteResponse);
-      if (deleteResponse.status === 200) {
+      setResponseDelete(deleteResponse.response.status);
+
+      if (deleteResponse.response.status === 200) {
         setLocations(locations.filter(location => location.uid !== locationId));
         toast.info("La ubicación ha sido eliminada", { toastId: "idToast" });
-      } else {
+      } else if (deleteResponse.response.status === 400) {
         toast.info(deleteResponse.response.data.msg, { toastId: "idToast" });
       }
     } catch (error) {
-      toast.error("Error al eliminar la ubicación: " + error.message, { toastId: "idToast" });
+      console.log(error);
     }
   };
 
@@ -66,6 +67,9 @@ export default function Page() {
       <div>
         <Pagination onStepped={onStepped} totalElements={totalLocations} limit={limit} />
       </div>
+
+      <ToastContainer />
+
     </>
   );
 }

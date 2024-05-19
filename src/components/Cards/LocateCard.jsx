@@ -6,8 +6,6 @@ import { CardSkeleton } from "@/components/skeletons/CardSkeleton"; // Importa t
 import ActionsPopUp from "../popups/ActionsPopUp";
 import IsSecurePopUp from "../popups/IsSecurePopUp";
 import { deleteLocation } from "@/services/data/Location.service";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function LocateCard({ location, loading, onDeleteLocation }) {
@@ -49,7 +47,6 @@ export default function LocateCard({ location, loading, onDeleteLocation }) {
 
   return (
     <div>
-      <ToastContainer />
       <div>
         <div
           key={location.name}
