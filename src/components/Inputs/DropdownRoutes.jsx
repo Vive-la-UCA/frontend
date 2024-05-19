@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { getAllRoutes } from "@/services/data/Routes.service";
+import { getRoutesWithoutPag } from "@/services/data/Routes.service";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { IoClose } from "react-icons/io5";
 
@@ -17,7 +17,7 @@ export default function DropdownRoutes({
 
   useEffect(() => {
     async function fetchLocations() {
-      const locations = await getAllRoutes();
+      const locations = await getRoutesWithoutPag();
       if (values != null) {
         setSelectedLocation(values);
       }
