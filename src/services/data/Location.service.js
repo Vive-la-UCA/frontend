@@ -117,7 +117,7 @@ export const updateLocation = async (location) => {
 export const deleteLocation = async (id) => {
   return api.delete(`/location/${id}`)
     .then((response) => {
-      return response.data
+      return response
     })
     .catch((error) => {
       return error;

@@ -35,16 +35,16 @@ export default function Page() {
   const onDeleteLocation = async (locationId) => {
     try {
       const deleteResponse = await deleteLocation(locationId);
-      setResponseDelete(deleteResponse.response.status);
-
-      if (deleteResponse.response.status === 200) {
+      console.log(deleteResponse)
+      if (deleteResponse.status === 200) {
         setLocations(locations.filter(location => location.uid !== locationId));
-        toast.info("La ubicación ha sido eliminada", { toastId: "idToast" });
-      } else if (deleteResponse.response.status === 400) {
-        toast.info(deleteResponse.response.data.msg, { toastId: "idToast" });
+        toast.sucess("La ubicación ha sido eliminada");
+      } else if (deleteResponse.status === 400) {
+        toast.info(deleteResponse.data.msg);
       }
     } catch (error) {
       console.log(error);
+      toast.info(error);
     }
   };
 
