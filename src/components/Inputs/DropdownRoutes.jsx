@@ -17,11 +17,11 @@ export default function DropdownRoutes({
 
   useEffect(() => {
     async function fetchLocations() {
-      const locations = await getAllRoutes();
+      const locations = await getAllRoutes(0);
       if (values != null) {
         setSelectedLocation(values);
       }
-      setLocation(locations);
+      setLocation(locations.data.routes);
     }
 
     fetchLocations();
@@ -46,8 +46,8 @@ export default function DropdownRoutes({
     setSearchTerm(e.target.value);
   };
 
-  const filteredLocations = locations.filter((location) =>
-    location.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredLocations = locations.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
