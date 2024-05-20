@@ -38,8 +38,8 @@ export default function Page() {
       if (deleteResponse.status === 200) {
         setLocations(locations.filter(location => location.uid !== locationId));
         toast.sucess("La ubicación ha sido eliminada");
-      } else if (deleteResponse.status === 400) {
-        toast.info(deleteResponse.data.msg);
+      } else if (deleteResponse.response.status === 400) {
+        toast.info(deleteResponse.response.data.msg);
       }
     } catch (error) {
       console.log(error);
