@@ -1,7 +1,10 @@
-import CardResumeDashboard from "@/components/Cards/CardResumeDashboard";
-import UserCard from "@/components/Cards/UserCard";
-import RuteCard from "@/components/Cards/RuteCardDashboard";
-import { Suspense } from "react";
+import CardResumeDashboard from '@/components/Cards/CardResumeDashboard'
+import UserCard from '@/components/Cards/UserCard'
+import RuteCard from '@/components/Cards/RuteCardDashboard'
+import { Suspense } from 'react'
+import { UserCardContainer } from '@/components/Cards/UserCardContainer'
+import { Route } from 'react-router-dom'
+import { RouteCardContainerDashboard } from '@/components/Cards/RouteCardContainerDashboard'
 
 export default function Page() {
   return (
@@ -15,23 +18,17 @@ export default function Page() {
 
       <div className="border-box flex flex-row gap-5">
         <div className="w-1/2 pr-2">
-          <h2 className="text-xl font-semibold my-4">
-            Usuarios con mas insignias
-          </h2>
-          <div className="bg-white p-2 rounded-lg">
-            <UserCard />
-            <UserCard />
-            <UserCard />
-          </div>
+          <h1 className="text-xl font-semibold my-4">Rutas populares</h1>
+          <RouteCardContainerDashboard />
         </div>
 
         <div className="w-1/2 pr-2">
-          <h1 className="text-xl font-semibold my-4">Rutas populares</h1>
-          <RuteCard />
-          <RuteCard />
-          <RuteCard />
+          <h2 className="text-xl font-semibold my-4">
+            Usuarios con mas insignias
+          </h2>
+          <UserCardContainer />
         </div>
       </div>
     </>
-  );
+  )
 }
