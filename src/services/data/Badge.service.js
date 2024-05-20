@@ -22,13 +22,14 @@ api.interceptors.request.use(
 );
 
 // Función para obtener todos los badges
-export const getAllBadges = async () => {
-  try {
-    const response = await api.get("/badge");
-    return response.data.badges;
-  } catch (error) {
-    return error;
-  }
+export const getAllBadges = async ({page}) => {
+  return api.get(`/badge?limit=10&skip=${page}`)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
 };
 
 export const createNewBadge = async (badge) => {
@@ -87,11 +88,14 @@ export const updateBadge = async (badge) => {
 };
 
 // Función para eliminar un badge por su ID
+
 export const deleteBadge = async (id) => {
-  try {
-    const response = await api.delete(`/badge/${id}`);
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return api.delete(`/badge/${id}`)
+    .then((response) => {
+      return response
+    })
+    .catch((error) => {
+      return error;
+    });
 };
+  

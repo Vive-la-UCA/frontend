@@ -6,6 +6,7 @@ import DropdownRoutes from "@/components/Inputs/DropdownRoutes";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
+import BadgeValidator from "@/app/validations/badgeValidator";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
@@ -32,12 +33,21 @@ export default function Page() {
 
   async function submitHandler(e) {
     e.preventDefault();
+    const validate = BadgeValidator(badge);
+
+    if (validate.status === false) {
+      toast.info(validate.message);
+      return;
+    }
 
     const response = await createNewBadge(badge);
-    console.log(response);
-
     if (response) {
       toast.success("Insignia creada con éxito");
+      setTimeout(() => {
+        router.push("/dashboard/badges");
+      }, 2000);
+    } else {
+      toast.error("Error al crear la insignia");
     }
 
     setTimeout(() => {

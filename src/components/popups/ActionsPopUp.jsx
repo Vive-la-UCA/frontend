@@ -2,11 +2,6 @@ import { MdDeleteOutline, MdEdit } from "react-icons/md";
 import Link from "next/link";
 
 export default function ActionsPopUp({ routeEdit, handleDelete }) {
-
-
-
-
-
   return (
     <div className="absolute z-20 top-0 -right-32 bg-white pl-2 py-1 rounded-lg shadow-lg">
       <div className="relative pr-2 pl-1">
@@ -24,8 +19,6 @@ export default function ActionsPopUp({ routeEdit, handleDelete }) {
         </button>
         <div className="absolute top-3 -left-3 w-3 h-3 bg-white transform rotate-45"></div>
       </div>
-
-
     </div>
   );
 }

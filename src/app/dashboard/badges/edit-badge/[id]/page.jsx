@@ -73,12 +73,12 @@ export default function Page({ params }) {
 
     const response = await updateBadge(formRoute);
     if (response) {
-      toast.success("Badge editada con éxito");
+      toast.success("Insignia editada con éxito");
       setTimeout(() => {
         router.push("/dashboard/badges");
       }, 2000);
     } else {
-      toast.error("Error al crear el badge");
+      toast.error("Error al editar el badge");
     }
   };
 

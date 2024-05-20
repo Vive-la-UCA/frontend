@@ -9,7 +9,6 @@ import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 
-
 export default function Page() {
 
     const router = useRouter();

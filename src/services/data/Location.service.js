@@ -48,13 +48,14 @@ export const getLocationsPag = async ({ page }) => {
 }
 
 export const getLocationsWithoutPag = async () => {
-  return api.get(`/location/all`)
-    .then((response) => {
-      return response.data.locations;
+  return api
+    .get(`/location/all`)
+    .then(response => {
+      return response.data.locations
     })
-    .catch((error) => {
-      return error;
-    });
+    .catch(error => {
+      return error
+    })
 }
 
 export const getQuantityOfLocations = async () => {
@@ -130,9 +131,9 @@ export const updateLocation = async location => {
     })
 }
 
-export const deleteLocation = async uid => {
+export const deleteLocation = async id => {
   return api
-    .delete(`/location/${uid}`)
+    .delete(`/location/${id}`)
     .then(response => {
       return response
     })

@@ -2,11 +2,11 @@
 import SearchBar from "@/components/Inputs/SearchBar";
 import LocateCard from "@/components/Cards/LocateCard";
 import { useEffect, useState } from "react";
-import { getAllLocations, getQuantityOfLocations } from "@/services/data/Location.service";
+import { getAllLocations, getQuantityOfLocations, deleteLocation } from "@/services/data/Location.service";
 import PrincipalButton from "@/components/buttons/principal-button";
 import { IoIosAddCircle } from "react-icons/io";
 import { Pagination } from "@/components/Inputs/Pagination";
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
@@ -16,7 +16,6 @@ export default function Page() {
   const [page, setPage] = useState(0);
 
 
-
   useEffect(() => {
     async function fetchLocations() {
       const locs = await getAllLocations({ page });
@@ -24,9 +23,8 @@ export default function Page() {
       setTotalLocations(quantity);
       setLocations(locs);
     }
-
     fetchLocations();
-  }, [page]);
+  }, [page, locations.length]);
 
 
   function onStepped(page) {
@@ -35,11 +33,17 @@ export default function Page() {
 
   const onDeleteLocation = async (locationId) => {
     try {
-      await deleteLocation(locationId);
-      setLocations(locations.filter(location => location.uid !== locationId));
+      const deleteResponse = await deleteLocation(locationId);
+      console.log(deleteResponse)
+      if (deleteResponse.status === 200) {
+        setLocations(locations.filter(location => location.uid !== locationId));
+        toast.sucess("La ubicación ha sido eliminada");
+      } else if (deleteResponse.response.status === 400) {
+        toast.info(deleteResponse.response.data.msg);
+      }
     } catch (error) {
-      console.error("Error al eliminar la ubicación:", error);
-      toast.error("Error al eliminar la ubicación");
+      console.log(error);
+      toast.info(error);
     }
   };
 
@@ -55,7 +59,7 @@ export default function Page() {
       <div className="mt-10 mx-10 flex flex-row flex-wrap gap-10">
         {
           locations.map((location) => (
-            <LocateCard key={location.id} location={location} />
+            <LocateCard key={location.id} location={location} onDeleteLocation={onDeleteLocation} />
           ))
         }
       </div >
@@ -64,6 +68,7 @@ export default function Page() {
       </div>
 
       <ToastContainer />
+
     </>
   );
 }

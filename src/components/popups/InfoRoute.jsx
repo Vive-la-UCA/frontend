@@ -59,7 +59,7 @@ export default function InfoRoute({ open, onClose, route }) {
                     <p>Localidades de esta ruta:</p>
                     <ul className="list-disc list-inside overflow-y-scroll px-10">
                         {locations.map((location) => (
-                            <div className="flex flex-row items-center gap-2 mt-5 rounded-lg bg-gray-100 p-2">
+                            <div key={location.uid} className="flex flex-row items-center gap-2 mt-5 rounded-lg bg-gray-100 p-2">
                                 <img className="h-12 w-12 object-cover rounded-lg" src={`${CORE_IMAGES_URL}/uploads/${location.image}`} alt="" />
                                 <div>
                                     <p>{location.name}</p>
