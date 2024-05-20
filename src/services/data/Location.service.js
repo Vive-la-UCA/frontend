@@ -47,6 +47,16 @@ export const getLocationsPag = async ({ page }) => {
     })
 }
 
+export const getLocationsWithoutPag = async () => {
+  return api.get(`/location/all`)
+    .then((response) => {
+      return response.data.locations;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
 export const getQuantityOfLocations = async () => {
   return api
     .get(`/location?limit=2`)

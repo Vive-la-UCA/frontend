@@ -33,6 +33,16 @@ export const getAllRoutes = async ({page}) => {
     });
 };
 
+export const getRoutesWithoutPag = async () => { 
+  return api.get(`/route/all`)
+    .then((response) => {
+      return response.data.routes;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 export const getOneRoute = async (id) => {
   return api.get(`/route/${id}`)
     .then((response) => {

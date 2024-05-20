@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { getAllRoutes } from "@/services/data/Routes.service";
+import { getRoutesWithoutPag } from "@/services/data/Routes.service";
 import { CORE_IMAGES_URL } from "@/app/constants/session";
 import { IoClose } from "react-icons/io5";
 
@@ -17,7 +17,7 @@ export default function DropdownRoutes({
 
   useEffect(() => {
     async function fetchLocations() {
-      const locations = await getAllRoutes();
+      const locations = await getRoutesWithoutPag();
       if (values != null) {
         setSelectedLocation(values);
       }
@@ -69,12 +69,7 @@ export default function DropdownRoutes({
         </div>
 
         {isOpen && (
-          <div
-            className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="options-menu"
-          >
+          <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none max-h-60 overflow-y-auto" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {/* Search input */}
             <div className="px-4 pt-2 pb-1">
               <input
