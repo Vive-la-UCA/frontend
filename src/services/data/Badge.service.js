@@ -88,11 +88,14 @@ export const updateBadge = async (badge) => {
 };
 
 // Función para eliminar un badge por su ID
+
 export const deleteBadge = async (id) => {
-  try {
-    const response = await api.delete(`/badge/${id}`);
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return api.delete(`/badge/${id}`)
+    .then((response) => {
+      return response
+    })
+    .catch((error) => {
+      return error;
+    });
 };
+  

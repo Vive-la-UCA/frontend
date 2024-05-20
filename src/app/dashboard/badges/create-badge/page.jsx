@@ -42,16 +42,12 @@ export default function Page() {
 
     const response = await createNewBadge(badge);
     if (response) {
-      toast.success("Badge creada con éxito");
+      toast.success("Insignia creada con éxito");
       setTimeout(() => {
         router.push("/dashboard/badges");
       }, 2000);
     } else {
-      toast.error("Error al crear el badge");
-    }
-
-    if (response) {
-      toast.success("Insignia creada con éxito");
+      toast.error("Error al crear la insignia");
     }
 
     setTimeout(() => {

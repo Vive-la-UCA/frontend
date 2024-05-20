@@ -7,46 +7,46 @@ import { IoClose } from "react-icons/io5";
 export default function DropdownRoutes({
   title,
   onClickDropdown,
-  onRemoveLocation = null,
+  onRemoveRoute = null,
   values = null,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [locations, setLocation] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [routes, setRoutes] = useState([]);
+  const [selectedRoute, setSelectedRoute] = useState(null);
 
   useEffect(() => {
-    async function fetchLocations() {
-      const locations = await getRoutesWithoutPag();
+    async function fetchRoutes() {
+      const routes = await getRoutesWithoutPag();
       if (values != null) {
-        setSelectedLocation(values);
+        setSelectedRoute(values);
       }
-      setLocation(locations);
+      setRoutes(routes);
     }
 
-    fetchLocations();
+    fetchRoutes();
   }, [values]);
 
   useEffect(() => {
-    if (selectedLocation) {
-      setIsOpen(false); // Cierra el dropdown después de seleccionar una ubicación
+    if (selectedRoute) {
+      setIsOpen(false); // Cierra el dropdown después de seleccionar una ruta
     }
-  }, [selectedLocation]);
+  }, [selectedRoute]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelectedLocation = (location) => {
-    setSelectedLocation(location);
-    onClickDropdown(location);
+  const handleSelectedRoute = (route) => {
+    setSelectedRoute(route);
+    onClickDropdown(route);
   };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredLocations = locations.filter((item) =>
+  const filteredRoutes = routes.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -88,44 +88,44 @@ export default function DropdownRoutes({
 
             {/* Dropdown items */}
             <div className="py-1" role="none">
-              {filteredLocations.map((location) => (
+              {filteredRoutes.map((route) => (
                 <div
-                  key={location.uid}
-                  onClick={() => handleSelectedLocation(location)}
+                  key={route.uid}
+                  onClick={() => handleSelectedRoute(route)}
                   className="flex flex-row px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                   role="menuitem"
                 >
                   <img
                     loading="lazy"
-                    src={`${CORE_IMAGES_URL}/uploads/${location.image}`}
+                    src={`${CORE_IMAGES_URL}/uploads/${route.image}`}
                     alt="Icono"
                     className="w-10 object-cover rounded-xl h-10 inline-block mr-2"
                   />
-                  {location.name}
+                  {route.name}
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Selected location */}
-        {selectedLocation && (
+        {/* Selected route */}
+        {selectedRoute && (
           <div className="flex flex-col gap-5 mt-2">
-            <div key={selectedLocation.uid}>
+            <div key={selectedRoute.uid}>
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row w-full justify-start gap-2 items-center">
                   <img
                     className="rounded-lg h-10 w-10 object-cover"
-                    src={`${CORE_IMAGES_URL}/uploads/${selectedLocation.image}`}
+                    src={`${CORE_IMAGES_URL}/uploads/${selectedRoute.image}`}
                     alt=""
                   />
-                  <p>{selectedLocation.name}</p>
+                  <p>{selectedRoute.name}</p>
                 </div>
                 <IoClose
                   size={20}
                   onClick={() => {
-                    setSelectedLocation(null);
-                    if (onRemoveLocation) onRemoveLocation(selectedLocation);
+                    setSelectedRoute(null);
+                    if (onRemoveRoute) onRemoveRoute(selectedRoute);
                   }}
                   className="bg-gray-200 rounded-full cursor-pointer"
                 />

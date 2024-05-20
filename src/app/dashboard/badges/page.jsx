@@ -6,6 +6,9 @@ import { getAllBadges } from "@/services/data/Badge.service";
 import PrincipalButton from "@/components/buttons/principal-button";
 import { IoIosAddCircle } from "react-icons/io";
 import { Pagination } from "@/components/Inputs/Pagination";
+import { deleteBadge } from "@/services/data/Badge.service";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const [badges, setBadges] = useState([]);
@@ -24,8 +27,24 @@ export default function Page() {
     fetchBadges();
   }, [page]);
 
-  console.log("total");
-  console.log(totalBadges);
+  const onDeleteBadge = async (badgeId) => {
+    try {
+      const deleteResponse = await deleteBadge(badgeId);
+      console.log(deleteResponse);
+      if (deleteResponse.status && deleteResponse.status === 200) {
+        setBadges(badges.filter((badge) => badge.uid !== badgeId));
+        toast.success("La insignia ha sido eliminada");
+      } else if (
+        deleteResponse.response &&
+        deleteResponse.response.status === 400
+      ) {
+        toast.info(deleteResponse.response.data.msg);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.info(error);
+    }
+  };
 
   function onStepped(page) {
     setPage(page);
@@ -51,7 +70,11 @@ export default function Page() {
       </div>
       <div className="mt-10 flex flex-row flex-wrap gap-10 mx-10">
         {badges.map((badge) => (
-          <BadgeCard key={badge.id} badge={badge} />
+          <BadgeCard
+            key={badge.id}
+            badge={badge}
+            onDeleteBadge={onDeleteBadge}
+          />
         ))}
       </div>
       <div>
@@ -61,6 +84,7 @@ export default function Page() {
           limit={limit}
         />
       </div>
+      <ToastContainer />
     </div>
   );
 }
