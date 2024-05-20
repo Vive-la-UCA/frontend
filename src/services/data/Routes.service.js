@@ -92,9 +92,6 @@ export const updateRoute = async (route) => {
     formData.append('locations', location.uid);
   });
 
-  
-
-  console.log("Info mandada al back");
 
   console.log(formData);
   return api.put(`/route/${route.uid}`, formData, {
@@ -109,3 +106,14 @@ export const updateRoute = async (route) => {
     return error;
   });
 };
+
+export const deleteRoute = async (id) => {
+  return api.delete(`/route/${id}`)
+    .then((response) => {
+      return response
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+  

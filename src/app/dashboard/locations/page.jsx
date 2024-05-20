@@ -14,7 +14,6 @@ export default function Page() {
   const [totalLocations, setTotalLocations] = useState(0);
   const limit = 10;
   const [page, setPage] = useState(0);
-  const [responseDelete, setResponseDelete] = useState("")
 
 
   useEffect(() => {

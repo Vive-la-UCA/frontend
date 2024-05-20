@@ -64,7 +64,7 @@ export default function LocateCard({ location, loading, onDeleteLocation }) {
             <h2 className="text-xl font-semibold">{location.name}</h2>
             <div onClick={(e) => handleMenuClick(location, e)}>
               <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
-              {showMenu === location && <ActionsPopUp routeEdit={`/dashboard/locations/edit-location/${location.uid}`} handleDelete={handleDeleteCard} title={`Esta seguro de eliminar la localidad ${location.name}`} />}
+              {showMenu === location && <ActionsPopUp routeEdit={`/dashboard/locations/edit-location/${location.uid}`} handleDelete={handleDeleteCard} />}
             </div>
           </div>
         </div>
