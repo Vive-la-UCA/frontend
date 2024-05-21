@@ -1,6 +1,6 @@
 'use client'
 
-import { getAllBadges } from '@/services/data/Badge.service'
+import { getAllBadgesWithoutPag } from '@/services/data/Badge.service'
 import { getRoutesWithoutPag } from '@/services/data/Routes.service'
 import { GetUsers } from '@/services/data/userService'
 import { useEffect, useState } from 'react'
@@ -15,7 +15,7 @@ export const RouteCardContainerDashboard = () => {
   }
 
   const fetchBadges = async () => {
-    const response = await getAllBadges()
+    const response = await getAllBadgesWithoutPag()
     return response
   }
 
