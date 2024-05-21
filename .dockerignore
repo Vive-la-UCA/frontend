@@ -1,2 +1,11 @@
 node_modules
 npm-debug.log
+.DS_Store
+build
+dist
+.cache
+.next
+out
+.git
+docker-compose.yml
+Dockerfile

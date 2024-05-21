@@ -1,5 +1,4 @@
 import { CORE_IMAGES_URL } from '@/app/constants/session'
-import Image from 'next/image'
 
 export default function RuteCard({ name, image }) {
   return (
@@ -7,7 +6,7 @@ export default function RuteCard({ name, image }) {
       <div className="flex items-center">
         <div className="w-24 h-24 mr-4 relative">
           {/* Contenedor para la imagen de la ruta */}
-          <Image
+          <img
             className="absolute inset-0 w-full h-full object-cover rounded-tl-lg rounded-tr-none rounded-bl-lg"
             src={`${CORE_IMAGES_URL}/uploads/${image}`}
             alt="Imagen de la Ruta"
