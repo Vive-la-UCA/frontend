@@ -1,13 +1,13 @@
-version: '3.5'
+version: '2'
 
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: docker-next
+    container_name: admin-front
     ports:
-      - '3000:3000'
+      - '5555:5555'
     volumes:
       - .:/app
       - /app/node_modules
