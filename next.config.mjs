@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  basePath: '/admin-front',
+  assetPrefix: '/admin-front/',
   images: {
     remotePatterns: [
       {
