@@ -35,7 +35,6 @@ export default function Page() {
   const onDeleteRoute = async (routeId) => {
     try {
       const deleteResponse = await deleteRoute(routeId);
-      console.log(deleteResponse)
       if (deleteResponse.status && deleteResponse.status === 200) {
         setRoutes(routes.filter(route => route.uid !== routeId));
         toast.success("La ruta ha sido eliminada");

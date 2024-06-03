@@ -85,9 +85,6 @@ export const updateBadge = async badge => {
   formData.append('image', badge.image)
   formData.append('route', badge.route.uid)
 
-  console.log('Info mandada al back')
-
-  console.log(formData)
   return api
     .put(`/badge/${badge.uid}`, formData, {
       headers: {

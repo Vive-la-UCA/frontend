@@ -1,59 +1,53 @@
-"use client";
-import BadgeCard from "@/components/Cards/BadgeCard";
-import SearchBar from "@/components/Inputs/SearchBar";
-import { useState, useEffect } from "react";
-import { getAllBadges } from "@/services/data/Badge.service";
-import PrincipalButton from "@/components/buttons/principal-button";
-import { IoIosAddCircle } from "react-icons/io";
-import { Pagination } from "@/components/Inputs/Pagination";
-import { deleteBadge } from "@/services/data/Badge.service";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+'use client'
+import BadgeCard from '@/components/Cards/BadgeCard'
+import SearchBar from '@/components/Inputs/SearchBar'
+import { useState, useEffect } from 'react'
+import { getAllBadges } from '@/services/data/Badge.service'
+import PrincipalButton from '@/components/buttons/principal-button'
+import { IoIosAddCircle } from 'react-icons/io'
+import { Pagination } from '@/components/Inputs/Pagination'
+import { deleteBadge } from '@/services/data/Badge.service'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Page() {
-  const [badges, setBadges] = useState([]);
-  const [totalBadges, setTotalBadges] = useState(0); // Total number of routes
-  const limit = 10; // Number of routes per page
-  const [page, setPage] = useState(0); // Current page
+  const [badges, setBadges] = useState([])
+  const [totalBadges, setTotalBadges] = useState(0) // Total number of routes
+  const limit = 10 // Number of routes per page
+  const [page, setPage] = useState(0) // Current page
 
   useEffect(() => {
     async function fetchBadges() {
-      const badges = await getAllBadges({ page });
-      setBadges(badges.data.badges);
-      setTotalBadges(badges.data.total);
-      console.log("Badges");
-      console.log(badges);
+      const badges = await getAllBadges({ page })
+      setBadges(badges.data.badges)
+      setTotalBadges(badges.data.total)
     }
-    fetchBadges();
-  }, [page]);
+    fetchBadges()
+  }, [page])
 
-  const onDeleteBadge = async (badgeId) => {
+  const onDeleteBadge = async badgeId => {
     try {
-      const deleteResponse = await deleteBadge(badgeId);
-      console.log(deleteResponse);
+      const deleteResponse = await deleteBadge(badgeId)
+
       if (deleteResponse.status && deleteResponse.status === 200) {
-        setBadges(badges.filter((badge) => badge.uid !== badgeId));
-        toast.success("La insignia ha sido eliminada");
+        setBadges(badges.filter(badge => badge.uid !== badgeId))
+        toast.success('La insignia ha sido eliminada')
       } else if (
         deleteResponse.response &&
         deleteResponse.response.status === 400
       ) {
-        toast.info(deleteResponse.response.data.msg);
+        toast.info(deleteResponse.response.data.msg)
       }
     } catch (error) {
-      console.log(error);
-      toast.info(error);
+      console.log(error)
+      toast.info(error)
     }
-  };
-
-  function onStepped(page) {
-    setPage(page);
   }
 
-  console.log("steeped");
-  console.log(page);
-  console.log("limit");
-  console.log(limit);
+  function onStepped(page) {
+    setPage(page)
+  }
+
   return (
     <div>
       <div className="mx-10">
@@ -62,14 +56,14 @@ export default function Page() {
           <SearchBar />
           <PrincipalButton
             link="/dashboard/badges/create-badge"
-            text={"Crear Insignia"}
-            type={"button"}
+            text={'Crear Insignia'}
+            type={'button'}
             Icon={<IoIosAddCircle size={25} />}
           />
         </div>
       </div>
       <div className="mt-10 flex flex-row flex-wrap gap-10 mx-10">
-        {badges.map((badge) => (
+        {badges.map(badge => (
           <BadgeCard
             key={badge.id}
             badge={badge}
@@ -86,5 +80,5 @@ export default function Page() {
       </div>
       <ToastContainer />
     </div>
-  );
+  )
 }

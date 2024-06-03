@@ -1,86 +1,78 @@
-"use client";
-import { getOneRoute } from "@/services/data/Routes.service";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
-import { useRouter } from "next/navigation";
-import "react-toastify/dist/ReactToastify.css";
-import InputText from "@/components/Inputs/input-text";
-import ImageUpload from "@/components/Inputs/ImageUpload";
-import DropdownRoutes from "@/components/Inputs/DropdownRoutes";
-import BadgeValidator from "@/app/validations/badgeValidator";
-import { getOneBadge, updateBadge } from "@/services/data/Badge.service";
+'use client'
+import { getOneRoute } from '@/services/data/Routes.service'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import 'react-toastify/dist/ReactToastify.css'
+import InputText from '@/components/Inputs/input-text'
+import ImageUpload from '@/components/Inputs/ImageUpload'
+import DropdownRoutes from '@/components/Inputs/DropdownRoutes'
+import BadgeValidator from '@/app/validations/badgeValidator'
+import { getOneBadge, updateBadge } from '@/services/data/Badge.service'
 
 export default function Page({ params }) {
-  const router = useRouter();
+  const router = useRouter()
 
   // Define the state of the form
   const [formRoute, setFormRoute] = useState({
     uid: params.id,
-    name: "",
+    name: '',
     image: null,
-    route: null,
-  });
+    route: null
+  })
 
-  console.log("FormRoute");
-  console.log(formRoute);
   // Get the route data
   useEffect(() => {
     async function fetchData() {
-      const response = await getOneBadge(params.id);
-      console.log("Response from getOneBadge");
-      console.log(response);
-      const locationData = await getOneRoute(response.route._id);
-      console.log("Location data");
-      console.log(locationData);
+      const response = await getOneBadge(params.id)
+      const locationData = await getOneRoute(response.route._id)
 
       setFormRoute({
         uid: params.id,
         name: response.name,
         image: response.image,
-        route: locationData,
-      });
+        route: locationData
+      })
     }
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
-  const getNameHandler = (e) => {
-    setFormRoute((prevState) => ({ ...prevState, name: e.target.value }));
-  };
+  const getNameHandler = e => {
+    setFormRoute(prevState => ({ ...prevState, name: e.target.value }))
+  }
 
-  const getSelectedLocationHandler = (location) => {
-    setFormRoute((prevState) => ({ ...prevState, route: location }));
-  };
+  const getSelectedLocationHandler = location => {
+    setFormRoute(prevState => ({ ...prevState, route: location }))
+  }
 
-  const getImageFileHandler = (file) => {
-    setFormRoute((prevState) => ({ ...prevState, image: file }));
-  };
+  const getImageFileHandler = file => {
+    setFormRoute(prevState => ({ ...prevState, image: file }))
+  }
 
   const removeLocationFromFormRoute = () => {
-    setFormRoute((prevState) => ({ ...prevState, route: null }));
-  };
+    setFormRoute(prevState => ({ ...prevState, route: null }))
+  }
 
-  const submitEditRoute = async (e) => {
-    console.log("FormRoute");
-    console.log(formRoute);
-    e.preventDefault();
-    const validate = BadgeValidator(formRoute);
+  const submitEditRoute = async e => {
+    e.preventDefault()
+    const validate = BadgeValidator(formRoute)
 
     if (validate.status === false) {
-      toast.info(validate.message);
-      return;
+      toast.info(validate.message)
+      return
     }
 
-    const response = await updateBadge(formRoute);
+    const response = await updateBadge(formRoute)
     if (response) {
-      toast.success("Insignia editada con éxito");
+      toast.success('Insignia editada con éxito')
       setTimeout(() => {
-        router.push("/dashboard/badges");
-      }, 2000);
+        router.push('/dashboard/badges')
+      }, 2000)
     } else {
-      toast.error("Error al editar el badge");
+      toast.error('Error al editar el badge')
     }
-  };
+  }
 
   return (
     <div>
@@ -92,12 +84,12 @@ export default function Page({ params }) {
         <div className="flex flex-row justify-between w-full gap-4">
           <div className="flex flex-col w-1/2">
             <InputText
-              title={"Nombre"}
+              title={'Nombre'}
               onChange={getNameHandler}
               value={formRoute.name}
             />
             <DropdownRoutes
-              title={"Ruta"}
+              title={'Ruta'}
               onClickDropdown={getSelectedLocationHandler}
               values={formRoute.route}
               onRemoveLocation={removeLocationFromFormRoute}
@@ -119,5 +111,5 @@ export default function Page({ params }) {
         </div>
       </form>
     </div>
-  );
+  )
 }

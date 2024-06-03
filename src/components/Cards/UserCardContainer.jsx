@@ -22,7 +22,6 @@ export const UserCardContainer = () => {
     const topThree = users.sort((a, b) => b.badges - a.badges).slice(0, 3)
 
     setTopThree(topThree)
-    console.log(topThree)
   }
 
   useEffect(() => {

@@ -72,8 +72,6 @@ export const getQuantityOfLocations = async () => {
 export const createNewLocation = async location => {
   const formData = new FormData()
 
-  console.log(location)
-
   formData.append('name', location.name)
   formData.append('description', location.description)
   formData.append('image', location.image)
@@ -107,9 +105,6 @@ export const getOneLocation = async id => {
 
 export const updateLocation = async location => {
   const formData = new FormData()
-
-  console.log('Location que viene al backend')
-  console.log(location.uid)
 
   formData.append('name', location.name)
   formData.append('description', location.description)
