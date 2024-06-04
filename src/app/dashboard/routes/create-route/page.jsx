@@ -1,47 +1,53 @@
-'use client'
+"use client";
 
-import InputText from '@/components/Inputs/input-text'
-import ImageUpload from '@/components/Inputs/ImageUpload'
-import { Dropdown } from '@/components/Inputs/Dropdown'
-import { createNewRoute } from '@/services/data/Routes.service'
-import { toast } from 'react-toastify'
-import { ToastContainer } from 'react-toastify'
-import { useRouter } from 'next/navigation'
-import 'react-toastify/dist/ReactToastify.css'
+import InputText from "@/components/Inputs/input-text";
+import ImageUpload from "@/components/Inputs/ImageUpload";
+import { Dropdown } from "@/components/Inputs/Dropdown";
+import { createNewRoute } from "@/services/data/Routes.service";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
+import "react-toastify/dist/ReactToastify.css";
+import RouteValidator from "@/app/validations/routeValidator";
 
 export default function Page() {
-  const router = useRouter()
+  const router = useRouter();
 
   let route = {
-    name: '',
+    name: "",
     image: null,
-    locations: []
-  }
+    locations: [],
+  };
 
-  const getNameHandler = e => {
-    route.name = e.target.value
-  }
+  const getNameHandler = (e) => {
+    route.name = e.target.value;
+  };
 
-  const getSelectedLocationHandler = location => {
-    route.locations = [...route.locations, location.uid]
-  }
+  const getSelectedLocationHandler = (location) => {
+    route.locations = [...route.locations, location.uid];
+  };
 
-  const getImageFileHandler = file => {
-    route.image = file
-  }
+  const getImageFileHandler = (file) => {
+    route.image = file;
+  };
 
   async function submitHandler(e) {
-    e.preventDefault()
+    e.preventDefault();
+    const validator = new RouteValidator(route);
 
-    const response = await createNewRoute(route)
-
-    if (response) {
-      toast.success('Ruta creada con éxito')
+    if (validator.status === false) {
+      toast.error(validator.message);
+    } else {
+      const response = await createNewRoute(route);
+      if (response) {
+        toast.success("Ruta creada con éxito");
+        setTimeout(() => {
+          router.push("/dashboard/routes");
+        }, 2000);
+      } else {
+        toast.error("Error al crear la ruta");
+      }
     }
-
-    setTimeout(() => {
-      router.push('/dashboard/routes')
-    }, 2000)
   }
 
   return (
