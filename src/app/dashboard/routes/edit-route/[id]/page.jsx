@@ -9,6 +9,7 @@ import RouteValidator from '@/app/validations/routeValidator'
 import 'react-toastify/dist/ReactToastify.css'
 import InputText from '@/components/Inputs/input-text'
 import ImageUpload from '@/components/Inputs/ImageUpload'
+import { TextArea } from '@/components/Inputs/TextArea'
 import { Dropdown } from '@/components/Inputs/Dropdown'
 
 export default function Page({ params }) {
@@ -36,6 +37,7 @@ export default function Page({ params }) {
       setFormRoute({
         uid: params.id,
         name: response.name,
+        description: response.description,
         image: response.image,
         locations: selectedLocationsFetch
       })
@@ -45,6 +47,10 @@ export default function Page({ params }) {
 
   const getNameHandler = e => {
     setFormRoute(prevState => ({ ...prevState, name: e.target.value }))
+  }
+
+  const getDescriptionHandler = e => {
+    setFormRoute(prevState => ({ ...prevState, description: e.target.value }))
   }
 
   const getSelectedLocationHandler = location => {
@@ -102,6 +108,11 @@ export default function Page({ params }) {
               title={'Nombre'}
               onChange={getNameHandler}
               value={formRoute.name}
+            />
+            <TextArea
+              title={'Descripción'}
+              onChange={getDescriptionHandler}
+              value={formRoute.description}
             />
             <Dropdown
               title={'Localidades'}

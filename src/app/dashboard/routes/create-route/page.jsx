@@ -8,18 +8,25 @@ import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import 'react-toastify/dist/ReactToastify.css'
+import { TextArea } from '@/components/Inputs/TextArea'
+import RouteValidator from '@/app/validations/routeValidator'
 
 export default function Page() {
   const router = useRouter()
 
   let route = {
     name: '',
+    description: '',
     image: null,
     locations: []
   }
 
   const getNameHandler = e => {
     route.name = e.target.value
+  }
+
+  const getDescriptionHandler = e => {
+    route.description = e.target.value
   }
 
   const getSelectedLocationHandler = location => {
@@ -33,15 +40,21 @@ export default function Page() {
   async function submitHandler(e) {
     e.preventDefault()
 
-    const response = await createNewRoute(route)
+    const validator = new RouteValidator(route)
 
-    if (response) {
-      toast.success('Ruta creada con éxito')
+    if (validator.status === false) {
+      toast.error(validator.message)
+    } else {
+      const response = await createNewRoute(route)
+      if (response) {
+        toast.success('Ruta creada con éxito')
+        setTimeout(() => {
+          router.push('/dashboard/routes')
+        }, 2000)
+      } else {
+        toast.error('Error al crear la ruta')
+      }
     }
-
-    setTimeout(() => {
-      router.push('/dashboard/routes')
-    }, 2000)
   }
 
   return (
@@ -53,6 +66,7 @@ export default function Page() {
         <div className="flex flex-row justify-between w-full gap-4">
           <div className="flex flex-col w-1/2">
             <InputText title={'Nombre'} onChange={getNameHandler} />
+            <TextArea title={'Descripción'} onChange={getDescriptionHandler} />
             <Dropdown
               title={'Localidades'}
               onClickDropwdown={getSelectedLocationHandler}

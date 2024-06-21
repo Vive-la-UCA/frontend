@@ -1,52 +1,53 @@
-"use client";
-import { IoMailOutline } from "react-icons/io5";
-import { RxLockClosed } from "react-icons/rx";
-import { useState } from "react";
-import { Login } from "@/services/auth/authService";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+'use client'
+import { IoMailOutline } from 'react-icons/io5'
+import { RxLockClosed } from 'react-icons/rx'
+import { useState } from 'react'
+import { Login } from '@/services/auth/authService'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 const LoginCard = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   const [inputValues, setInputValues] = useState({
-    email: "",
-    password: "",
-  });
+    email: '',
+    password: ''
+  })
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = e => {
+    const { name, value } = e.target
     setInputValues({
       ...inputValues,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async event => {
+    event.preventDefault()
 
-    const { email, password } = inputValues;
-    const { data, status } = await Login(email, password);
+    const { email, password } = inputValues
+    const { data, status } = await Login(email, password)
 
     setInputValues({
-      email: "",
-      password: "",
-    });
+      email: '',
+      password: ''
+    })
 
     if (status !== 200) {
-      if (data.errors) {
-        data.errors.forEach((error) => {
-          toast.error(error.msg);
-        });
-        return;
+      if (data?.errors) {
+        data.errors.forEach(error => {
+          console.error(error)
+          toast.error(error.error)
+        })
+        return
       }
-      toast.error(data.msg);
-      return;
+      toast.error(data.error)
+      return
     }
 
-    sessionStorage.setItem("token", data.token);
-    router.push("/dashboard ");
-  };
+    sessionStorage.setItem('token', data.token)
+    router.push('/dashboard ')
+  }
 
   return (
     <form
@@ -109,7 +110,7 @@ const LoginCard = () => {
         </div>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default LoginCard;
+export default LoginCard
