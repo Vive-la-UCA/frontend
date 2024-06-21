@@ -64,6 +64,7 @@ export const createNewRoute = async route => {
 
   formData.append('name', route.name)
   formData.append('image', route.image)
+  formData.append('description', route.description)
 
   route.locations.forEach(location => {
     formData.append('locations', location)
@@ -88,6 +89,7 @@ export const updateRoute = async route => {
 
   formData.append('name', route.name)
   formData.append('image', route.image)
+  formData.append('description', route.description)
 
   route.locations.forEach(location => {
     formData.append('locations', location.uid)
