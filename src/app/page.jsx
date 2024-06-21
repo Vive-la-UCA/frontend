@@ -1,27 +1,31 @@
-"use client";
-import LoginCard from "@/components/Cards/LoginCard";
-import { CheckToken } from "@/services/auth/authService";
-import { data } from "autoprefixer";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+'use client'
+import LoginCard from '@/components/Cards/LoginCard'
+import { CheckToken } from '@/services/auth/authService'
+import { data } from 'autoprefixer'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Login = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   const checkToken = async () => {
-    const authToken = sessionStorage.getItem("token");
-    const { status } = await CheckToken(authToken);
-    if (status === 200) {
-      router.push("/dashboard");
-      return;
+    try {
+      const authToken = sessionStorage.getItem('token')
+      const { status } = await CheckToken(authToken)
+      if (status === 200) {
+        router.push('/dashboard')
+        return
+      }
+    } catch (error) {
+      console.log(error)
     }
-  };
+  }
 
   useEffect(() => {
-    checkToken();
-  }, []);
+    checkToken()
+  }, [])
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-background font-montserrat">
@@ -32,7 +36,7 @@ const Login = () => {
         </div>
       </section>
     </main>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
