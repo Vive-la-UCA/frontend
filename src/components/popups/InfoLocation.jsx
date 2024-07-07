@@ -1,5 +1,4 @@
 import { FaTimes } from 'react-icons/fa'
-
 import { CORE_IMAGES_URL } from '@/app/constants/session'
 import { MapView } from '..'
 
@@ -7,7 +6,7 @@ export default function InfoLocation({ open, onClose, location }) {
   function handleClose(e) {
     // Verificar si se hizo clic fuera del contenido del modal
     if (e.target === e.currentTarget) {
-      onClose() // Cerrar el modal
+      onClose()
     }
   }
 
@@ -22,7 +21,7 @@ export default function InfoLocation({ open, onClose, location }) {
       <div className="relative flex flex-row w-3/5 h-96 justify-between bg-white rounded-lg shadow-md">
         <FaTimes
           className="absolute top-2 right-2 cursor-pointer text-gray-800 size-5"
-          onClick={handleClose}
+          onClick={onClose} // Directamente llamar a onClose sin verificar el evento
         />
         <div className="flex items-center w-2/5 mt-0 py-6 px-6 justify-center">
           <img
