@@ -26,8 +26,9 @@ export function Dropdown({ title, onClickDropwdown, values = null, onRemoveLocat
     const quitOneLocation = (item) => {
         const newLocations = selectedLocations.filter(location => location.uid !== item.uid);
         if (onRemoveLocation) onRemoveLocation(item);
-        setSelectedLocations(newLocations)
+        setSelectedLocations(newLocations);
     };
+
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);

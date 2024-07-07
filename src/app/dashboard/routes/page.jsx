@@ -1,81 +1,93 @@
-"use client";
-import SearchBar from "@/components/Inputs/SearchBar";
-import PrincipalButton from "@/components/buttons/principal-button";
-import { IoIosAddCircle } from "react-icons/io";
+import { CORE_IMAGES_URL } from "@/app/constants/session";
+import { BsThreeDots } from "react-icons/bs";
+import ActionsPopUp from "../popups/ActionsPopUp";
+import IsSecurePopUp from "../popups/IsSecurePopUp";
 import { useState, useEffect } from "react";
-import { getAllRoutes, deleteRoute } from "@/services/data/Routes.service";
-import { RouteCard } from "@/components/Cards/RouteCard";
-import { Pagination } from "@/components/Inputs/Pagination";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import InfoRoute from "@/components/popups/InfoRoute";
 
-export default function Page() {
-  const [routes, setRoutes] = useState([]);
+export function RouteCard({ route, onDeleteRoute }) {
 
-  // Variables to manage pagination
-  const [totalRoutes, setTotalRoutes] = useState(0); // Total number of routes
-  const limit = 10; // Number of routes per page
-  const [page, setPage] = useState(0); // Current page
+  const [showMenu, setShowMenu] = useState(null);
+  const [showInfoRoute, setShowInfoRoute] = useState(false);
+  const [showISecurePopUp, setShowISecurePopUp] = useState(false);
 
-  useEffect(() => {
-    async function fetchRoutes() {
-      const routes = await getAllRoutes({ page });
-      setRoutes(routes.data.routes);
-      setTotalRoutes(routes.data.total);
-    }
-
-    fetchRoutes();
-  }, [page, routes.length]);
-
-  // Function to change the page
-  function onStepped(page) {
-    setPage(page);
-  }
-
-  const onDeleteRoute = async (routeId) => {
-    try {
-      const deleteResponse = await deleteRoute(routeId);
-      if (deleteResponse.status && deleteResponse.status === 200) {
-        setRoutes(routes.filter(route => route.uid !== routeId));
-        toast.success("La ruta ha sido eliminada");
-      } else if (deleteResponse.response && deleteResponse.response.status === 400) {
-        toast.info(deleteResponse.response.data.msg);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.info(error);
-    }
+  const handleMenuClick = (route, e) => {
+    e.stopPropagation();
+    setShowMenu(showMenu === route ? null : route);
   };
 
+  async function handleDeleteCardFromDatabase() {
+    onDeleteRoute(route.uid);
+  }
+
+  const handleClosePopUp = () => {
+    setShowISecurePopUp(false);
+  }
+
+  const handleDeleteCard = () => {
+    setShowISecurePopUp(true);
+  };
+
+  const handleCardClick = () => {
+    if (showMenu === route) return;
+    setShowInfoRoute(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showMenu && !event.target.closest('.route-card-menu') && !event.target.closest('.route-card')) {
+        setShowMenu(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showMenu]);
 
   return (
-    <div>
-      <div className="mx-10">
-        <h1 className="text-3xl font-semibold mb-4">Rutas</h1>
-        <div className="flex flex-row justify-between w-full items-center gap-2">
-          <SearchBar />
-          <PrincipalButton
-            link="/dashboard/routes/create-route"
-            text={"Crear Ruta"}
-            type={"button"}
-            Icon={<IoIosAddCircle size={25} />}
-          />
-        </div>
-      </div>
-
-      <div className="mt-10 mx-10 flex flex-row flex-wrap gap-10">
-        {routes.map((route) => (
-          <RouteCard key={route.id} route={route} onDeleteRoute={onDeleteRoute} />
-        ))}
-      </div>
+    <div className="route-card">
       <div>
-        <Pagination
-          onStepped={onStepped}
-          totalElements={totalRoutes}
-          limit={limit}
-        />
+        <div
+          key={route.name}
+          onClick={() => handleCardClick(route)}
+          className="relative w-44 max-w-lg shadow-xl rounded-lg h-56 cursor-pointer"
+        >
+          <img
+            className="absolute inset-0 h-full w-full object-cover rounded-lg"
+            src={`${CORE_IMAGES_URL}/uploads/${route.image}`}
+            alt="Card Image"
+          />
+          <div className="absolute inset-0 bg-gray-900 opacity-40 rounded-lg"></div>{" "}
+          {/* Filtro de fondo oscuro*/}
+          <div className="absolute inset-0 flex flex-col justify-end p-3 text-white">
+            <h2 className="text-xl font-semibold">{route.name}</h2>
+            <div onClick={(e) => handleMenuClick(route, e)} className="route-card-menu">
+              <BsThreeDots className="absolute top-0 right-0 m-2 cursor-pointer size-9 text-white" />
+              {showMenu === route && <ActionsPopUp routeEdit={`/dashboard/routes/edit-route/${route.uid}`} handleDelete={handleDeleteCard} />}
+            </div>
+          </div>
+        </div>
+
+        {showInfoRoute && (
+          <InfoRoute
+            open={showInfoRoute}
+            onClose={() => setShowInfoRoute(false)}
+            route={route}
+          />
+        )}
+
+        {showISecurePopUp && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <IsSecurePopUp
+              functionToNo={handleClosePopUp}
+              functionToYes={handleDeleteCardFromDatabase}
+              title={`¿Está seguro de eliminar la ruta ${route.name}?`}
+            />
+          </div>
+        )}
       </div>
-      <ToastContainer />
     </div>
   );
 }
