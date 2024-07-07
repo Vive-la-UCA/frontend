@@ -36,7 +36,7 @@ export default function SelectMapLocations({
         className="h-[20rem] w-full rounded-xl outline-none"
       >
         <TileLayer
-          url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           maxZoom={idZoomedToPosition ? 50 : 30}
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />

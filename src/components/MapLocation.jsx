@@ -18,7 +18,7 @@ export default function MapLocations({ position }) {
             <MapContainer center={position} dragging={false} scrollWheelZoom={false} zoom={20} className='h-[20rem] w-full rounded-xl outline-none'>
 
                 <TileLayer
-                    url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                    url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
                     maxZoom={20}
                     subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                 />
