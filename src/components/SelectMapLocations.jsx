@@ -32,12 +32,12 @@ export default function SelectMapLocations({
       <p>{position[0] + ',' + position[1]}</p>
       <MapContainer
         center={position}
-        zoom={20}
+        zoom={19}
         className="h-[20rem] w-full rounded-xl outline-none"
       >
         <TileLayer
-          url="https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-          maxZoom={idZoomedToPosition ? 50 : 30}
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          maxZoom={20}
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
 

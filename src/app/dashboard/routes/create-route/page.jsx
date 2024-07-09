@@ -25,6 +25,10 @@ export default function Page() {
     route.name = e.target.value
   }
 
+  const removeLocationHandler = location => {
+    route.locations = route.locations.filter(l => l !== location.uid)
+  }
+
   const getDescriptionHandler = e => {
     route.description = e.target.value
   }
@@ -70,6 +74,7 @@ export default function Page() {
             <Dropdown
               title={'Localidades'}
               onClickDropwdown={getSelectedLocationHandler}
+              onRemoveLocation={removeLocationHandler}
             />
           </div>
           <ImageUpload onSelectedFile={getImageFileHandler} />
